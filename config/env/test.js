@@ -1,7 +1,7 @@
 'use strict';
 
 module.exports = {
-	db: 'mongodb://localhost/diilideeadministration-test',
+	db: 'mongodb://localhost/deals_test',
 	port: 3001,
 	app: {
 		title: 'DiilidEeAdministration - Test Environment'

@@ -1,7 +1,7 @@
 'use strict';
 
 module.exports = {
-	db: 'mongodb://localhost/diilideeadministration-dev',
+	db: 'mongodb://localhost/deals_development',
 	app: {
 		title: 'DiilidEeAdministration - Development Environment'
 	},
