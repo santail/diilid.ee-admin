@@ -1,19 +1,12 @@
 'use strict';
 
+var config = require('../../config/config');
+
+var Agenda = require('agenda');
+var agendaUI = require('agenda-ui');
+
 module.exports = function(app) {
-	var users = require('../../app/controllers/users.server.controller');
-	var jobs = require('../../app/controllers/jobs.server.controller');
+    var agenda = new Agenda({db: { address: config.db}});
 
-	// Jobs Routes
-	app.route('/jobs')
-		.get(jobs.list)
-		.post(users.requiresLogin, jobs.create);
-
-	app.route('/jobs/:jobId')
-		.get(jobs.read)
-		.put(users.requiresLogin, jobs.hasAuthorization, jobs.update)
-		.delete(users.requiresLogin, jobs.hasAuthorization, jobs.delete);
-
-	// Finish by binding the Job middleware
-	app.param('jobId', jobs.jobByID);
+	app.use('/jobs', agendaUI(agenda, {poll: 1000}));
 };
