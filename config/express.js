@@ -23,9 +23,21 @@ var fs = require('fs'),
 	consolidate = require('consolidate'),
 	path = require('path');
 
+var Agenda = require('agenda');
+var agendaUI = require('agenda-ui');
+
 module.exports = function(db) {
 	// Initialize express app
 	var app = express();
+
+	var agenda = new Agenda({
+      db: {
+        address: config.db
+      },
+      defaultLockLifetime: 10000
+    });
+
+	app.use('/agenda-ui', agendaUI(agenda, {poll: 1000}));
 
 	// Globbing model files
 	config.getGlobbedFiles('./app/models/**/*.js').forEach(function(modelPath) {
