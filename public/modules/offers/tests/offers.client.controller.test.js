@@ -53,7 +53,7 @@
 		it('$scope.find() should create an array with at least one Offer object fetched from XHR', inject(function(Offers) {
 			// Create sample Offer using the Offers service
 			var sampleOffer = new Offers({
-				name: 'New Offer'
+				title: 'New Offer'
 			});
 
 			// Create a sample Offers array that includes the new Offer
@@ -73,7 +73,7 @@
 		it('$scope.findOne() should create an array with one Offer object fetched from XHR using a offerId URL parameter', inject(function(Offers) {
 			// Define a sample Offer object
 			var sampleOffer = new Offers({
-				name: 'New Offer'
+				title: 'New Offer'
 			});
 
 			// Set the URL parameter
@@ -93,17 +93,17 @@
 		it('$scope.create() with valid form data should send a POST request with the form input values and then locate to new object URL', inject(function(Offers) {
 			// Create a sample Offer object
 			var sampleOfferPostData = new Offers({
-				name: 'New Offer'
+				title: 'New Offer'
 			});
 
 			// Create a sample Offer response
 			var sampleOfferResponse = new Offers({
 				_id: '525cf20451979dea2c000001',
-				name: 'New Offer'
+				title: 'New Offer'
 			});
 
 			// Fixture mock form input values
-			scope.name = 'New Offer';
+			scope.title = 'New Offer';
 
 			// Set POST response
 			$httpBackend.expectPOST('offers', sampleOfferPostData).respond(sampleOfferResponse);
@@ -113,7 +113,7 @@
 			$httpBackend.flush();
 
 			// Test form inputs are reset
-			expect(scope.name).toEqual('');
+			expect(scope.title).toEqual('');
 
 			// Test URL redirection after the Offer was created
 			expect($location.path()).toBe('/offers/' + sampleOfferResponse._id);
@@ -123,7 +123,7 @@
 			// Define a sample Offer put data
 			var sampleOfferPutData = new Offers({
 				_id: '525cf20451979dea2c000001',
-				name: 'New Offer'
+				title: 'New Offer'
 			});
 
 			// Mock Offer in scope

@@ -9,7 +9,7 @@ angular.module('offers').controller('OffersController', ['$scope', '$stateParams
 		$scope.create = function() {
 			// Create new Offer object
 			var offer = new Offers ({
-				name: this.name
+				title: this.title
 			});
 
 			// Redirect after save
@@ -17,7 +17,7 @@ angular.module('offers').controller('OffersController', ['$scope', '$stateParams
 				$location.path('offers/' + response._id);
 
 				// Clear form fields
-				$scope.name = '';
+				$scope.title = '';
 			}, function(errorResponse) {
 				$scope.error = errorResponse.data.message;
 			});
@@ -25,7 +25,7 @@ angular.module('offers').controller('OffersController', ['$scope', '$stateParams
 
 		// Remove existing Offer
 		$scope.remove = function(offer) {
-			if ( offer ) { 
+			if ( offer ) {
 				offer.$remove();
 
 				for (var i in $scope.offers) {
@@ -58,7 +58,7 @@ angular.module('offers').controller('OffersController', ['$scope', '$stateParams
 
 		// Find existing Offer
 		$scope.findOne = function() {
-			$scope.offer = Offers.get({ 
+			$scope.offer = Offers.get({
 				offerId: $stateParams.offerId
 			});
 		};

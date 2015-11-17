@@ -10,19 +10,15 @@ var mongoose = require('mongoose'),
  * Offer Schema
  */
 var OfferSchema = new Schema({
-	name: {
-		type: String,
-		default: '',
-		required: 'Please fill Offer name',
-		trim: true
+	title: {
+		'type': String,
+		'default': '',
+		'required': 'Please fill Offer title',
+		'trim': true
 	},
-	created: {
-		type: Date,
-		default: Date.now
-	},
-	user: {
-		type: Schema.ObjectId,
-		ref: 'User'
+	'created': {
+		'type': Date,
+		'default': Date.now
 	}
 });
 
