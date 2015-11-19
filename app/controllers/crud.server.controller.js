@@ -7,7 +7,7 @@ var mongoose = require('mongoose'),
 	errorHandler = require('./errors.server.controller'),
     _ = require('lodash');
 
-module.exports = function(modelName, sortBy) {
+module.exports = function(modelName, sortBy, paging) {
 
 	var Model = mongoose.model(modelName);
 
@@ -63,15 +63,38 @@ module.exports = function(modelName, sortBy) {
 				query = req.query.filter;
 			}
 
-			Model.find(query).sort(sortBy).exec(function(err, models) {
-				if (err) {
-					return res.status(400).send({
-						message: errorHandler.getErrorMessage(err)
-					});
-				} else {
-					res.json(models);
-				}
-			});
+			if (paging) {
+				var page = 1;
+				if(req.params.page) {
+			      page = req.params.page;
+			    }
+
+			    var per_page = 50;
+	    		if(req.params.per_page) {
+			      per_page = req.params.per_page;
+			    }
+
+				Model.find(query).sort(sortBy).skip((page - 1) * per_page).limit(per_page).exec(function(err, models) {
+					if (err) {
+						return res.status(400).send({
+							message: errorHandler.getErrorMessage(err)
+						});
+					} else {
+						res.json(models);
+					}
+				});
+			}
+			else {
+				Model.find(query).sort(sortBy).exec(function(err, models) {
+					if (err) {
+						return res.status(400).send({
+							message: errorHandler.getErrorMessage(err)
+						});
+					} else {
+						res.json(models);
+					}
+				});
+			}
 		},
 		getByID: function(req, res, next, id) {
 			if (!mongoose.Types.ObjectId.isValid(id)) {

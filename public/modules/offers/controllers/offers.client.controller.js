@@ -7,7 +7,7 @@ angular.module('offers').controller('OffersController', ['$scope', '$stateParams
 
 		//Pagination
 		$scope.currentPage = 1;
-        $scope.pageSize = 10;
+        $scope.pageSize = 50;
         $scope.offset = 0;
 
        // Page changed handler
