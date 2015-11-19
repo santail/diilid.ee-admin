@@ -16,6 +16,13 @@ var OfferSchema = new Schema({
 		'required': 'Please fill Offer title',
 		'trim': true
 	},
+	site: {
+		'type': String,
+		'default': '',
+		'required': 'Please fill Offer site',
+		'trim': true
+	},
+
 	'created': {
 		'type': Date,
 		'default': Date.now
