@@ -22,11 +22,12 @@ var OfferSchema = new Schema({
 		'required': 'Please fill Offer site',
 		'trim': true
 	},
-
 	'created': {
 		'type': Date,
 		'default': Date.now
 	}
+}, {
+	autoIndex: process.env('mode') == 'development'
 });
 
 mongoose.model('Offer', OfferSchema);

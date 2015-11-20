@@ -89,6 +89,8 @@ var UserSchema = new Schema({
 	resetPasswordExpires: {
 		type: Date
 	}
+}, {
+	autoIndex: process.env('mode') == 'development'
 });
 
 /**
