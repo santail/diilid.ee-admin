@@ -9,19 +9,21 @@
 
     <!-- end -->
     <div class="list-group">
-        <a data-ng-repeat="offer in offers | limitTo: offset - offers.length | limitTo: pageSize" data-ng-href="#!/offers/{{offer._id}}" class="list-group-item">
+        <a data-ng-repeat="offer in offers" data-ng-href="#!/offers/{{offer._id}}" class="list-group-item">
             <h4 class="list-group-item-heading" data-ng-bind="offer.title"></h4>
             <span data-ng-bind="offer.site"></span>
+            <span data-ng-bind="total"></span>
             <small class="list-group-item-text">
 				Posted on
 				<span data-ng-bind="offer.created | date:'medium'"></span>
 			</small>
         </a>
     </div>
+    
     <!-- this is the paging control -->
-    <pagination total-items="offers.length" ng-model="currentPage" ng-change="pageChanged()" max-size="pageSize" ng-show="offers.length > pageSize"></pagination>
+    <pagination total-items="total" ng-model="currentPage" ng-change="find()" max-size="pageSize" ng-show="total > pageSize"></pagination>
     <!-- end -->
-    <div class="alert alert-warning text-center" data-ng-hide="!offers.$resolved || offers.length">
+    <div class="alert alert-warning text-center" data-ng-hide="!offers.$resolved || total">
         No offers yet, why don't you <a href="/#!/offers/create">create one</a>?
     </div>
 </section>

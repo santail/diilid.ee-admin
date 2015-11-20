@@ -10,11 +10,6 @@ angular.module('offers').controller('OffersController', ['$scope', '$stateParams
         $scope.pageSize = 50;
         $scope.offset = 0;
 
-       // Page changed handler
-       $scope.pageChanged = function() {
-            $scope.offset = ($scope.currentPage - 1) * $scope.pageSize;
-       };
-
 		// Create new Offer
 		$scope.create = function () {
 			// Create new Offer object
@@ -66,7 +61,19 @@ angular.module('offers').controller('OffersController', ['$scope', '$stateParams
 
 		// Find a list of Offers
         $scope.find = function() {
-            $scope.offers = Offers.query();
+        	$http.get('/offers/total').success(function (response) {
+                $scope.total = response.total;
+            }).error(function (response) {
+                $scope.error = response.message;
+            });
+
+        	$http.get('/offers/' + $scope.currentPage + "/" + $scope.pageSize).success(function (response) {
+                $scope.offers = response;
+            }).error(function (response) {
+                $scope.error = response.message;
+            });
+
+            $scope.offset = ($scope.currentPage - 1) * $scope.pageSize;
         };
 
         // Find existing Category

@@ -9,6 +9,12 @@ module.exports = function(app) {
 		.get(offers.list)
 		.post(users.requiresLogin, offers.create);
 
+	app.route('/offers/total')
+		.get(offers.total);
+
+    app.route('/offers/:page/:pageSize')
+        .get(offers.list);
+
 	app.route('/offers/:offerId')
 		.get(offers.read)
 		.put(users.requiresLogin, offers.hasAuthorization, offers.update)

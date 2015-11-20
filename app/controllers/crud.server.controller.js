@@ -56,6 +56,19 @@ module.exports = function(modelName, sortBy, paging) {
 				}
 			});
 		},
+		total: function (req, res) {
+			Model.count({}, function( err, count){
+				if (err) {
+					return res.status(400).send({
+						message: errorHandler.getErrorMessage(err)
+					});
+				} else {
+					res.status(200).send({
+						total: count
+					});
+				}
+			});
+		},
 		list: function(req, res) {
 			var query = {};
 			if (req.query.filter) {
@@ -69,12 +82,14 @@ module.exports = function(modelName, sortBy, paging) {
 			      page = req.params.page;
 			    }
 
-			    var per_page = 50;
-	    		if(req.params.per_page) {
-			      per_page = req.params.per_page;
+			    var pageSize = 5;
+	    		if(req.params.pageSize) {
+			      pageSize = req.params.pageSize;
 			    }
 
-				Model.find(query).sort(sortBy).skip((page - 1) * per_page).limit(per_page).exec(function(err, models) {
+				var offset = (page - 1) * pageSize;
+
+				Model.find(query).sort(sortBy).skip(offset).limit(pageSize).exec(function(err, models) {
 					if (err) {
 						return res.status(400).send({
 							message: errorHandler.getErrorMessage(err)
