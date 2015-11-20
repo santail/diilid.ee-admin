@@ -19,9 +19,8 @@
 			</small>
         </a>
     </div>
-    
     <!-- this is the paging control -->
-    <pagination total-items="total" ng-model="currentPage" ng-change="find()" max-size="pageSize" ng-show="total > pageSize"></pagination>
+    <pagination total-items="total" ng-model="currentPage" ng-change="find()" items-per-page="pageSize" ng-show="total > pageSize"></pagination>
     <!-- end -->
     <div class="alert alert-warning text-center" data-ng-hide="!offers.$resolved || total">
         No offers yet, why don't you <a href="/#!/offers/create">create one</a>?

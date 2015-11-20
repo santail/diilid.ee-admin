@@ -61,19 +61,19 @@ angular.module('offers').controller('OffersController', ['$scope', '$stateParams
 
 		// Find a list of Offers
         $scope.find = function() {
+            $scope.offset = ($scope.currentPage - 1) * $scope.pageSize;
+
         	$http.get('/offers/total').success(function (response) {
                 $scope.total = response.total;
             }).error(function (response) {
                 $scope.error = response.message;
             });
 
-        	$http.get('/offers/' + $scope.currentPage + "/" + $scope.pageSize).success(function (response) {
-                $scope.offers = response;
+            $http.get('/offers/' + $scope.currentPage + "/" + $scope.pageSize).success(function (response) {
+            	$scope.offers = response;
             }).error(function (response) {
                 $scope.error = response.message;
             });
-
-            $scope.offset = ($scope.currentPage - 1) * $scope.pageSize;
         };
 
         // Find existing Category
