@@ -69,7 +69,7 @@ angular.module('offers').controller('OffersController', ['$scope', '$stateParams
                 $scope.error = response.message;
             });
 
-            $http.get('/offers/' + $scope.currentPage + "/" + $scope.pageSize).success(function (response) {
+            $http.get('/offers/' + $scope.currentPage + '/' + $scope.pageSize).success(function (response) {
             	$scope.offers = response;
             }).error(function (response) {
                 $scope.error = response.message;

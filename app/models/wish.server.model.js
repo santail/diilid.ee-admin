@@ -30,13 +30,11 @@ var WishSchema = new Schema({
 	phone: {
 		type: String,
 		default: '',
-		required: 'Please fill phone',
 		trim: true
 	},
 	language: {
 		type: String,
 		default: 'rus',
-		required: 'Please fill language',
 		trim: true
 	},
 	created: {
