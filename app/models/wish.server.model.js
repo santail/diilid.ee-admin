@@ -10,10 +10,33 @@ var mongoose = require('mongoose'),
  * Wish Schema
  */
 var WishSchema = new Schema({
-	name: {
+	contains: {
 		type: String,
 		default: '',
-		required: 'Please fill Wish name',
+		required: 'Please fill wish body',
+		trim: true
+	},
+	email: {
+		type: String,
+		default: '',
+		required: 'Please fill email',
+		trim: true
+	},
+	hasPhone: {
+		type: Boolean,
+		default: false,
+		trim: true
+	},
+	phone: {
+		type: String,
+		default: '',
+		required: 'Please fill phone',
+		trim: true
+	},
+	language: {
+		type: String,
+		default: 'rus',
+		required: 'Please fill language',
 		trim: true
 	},
 	created: {
