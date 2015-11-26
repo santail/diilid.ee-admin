@@ -27,7 +27,7 @@ var OfferSchema = new Schema({
 		'default': Date.now
 	}
 }, {
-	autoIndex: process.env('mode') == 'development'
+	autoIndex: process.env.NODE_ENV == 'development'
 });
 
 mongoose.model('Offer', OfferSchema);
