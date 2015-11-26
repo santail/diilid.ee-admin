@@ -25,7 +25,7 @@ var WishSchema = new Schema({
 		ref: 'User'
 	}
 }, {
-	autoIndex: process.env('mode') == 'development'
+	autoIndex: process.env.NODE_ENV == 'development'
 });
 
 mongoose.model('Wish', WishSchema);
