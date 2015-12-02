@@ -30,7 +30,7 @@ module.exports = function(modelName, sortBy) {
 		},
 
 		read: function (req, res) {
-		  res.json(req.wish);
+		  res.json(req.model);
 		},
 
 		update: function(req, res) {
@@ -79,8 +79,6 @@ module.exports = function(modelName, sortBy) {
 			  };
 		    }
 
-			console.log(query);
-
 			if(req.query._page) {
 		      page = req.query._page;
 		      paging = true;
@@ -92,8 +90,6 @@ module.exports = function(modelName, sortBy) {
 		    }
 
 			var offset = (page - 1) * pageSize;
-
-			console.log(page, pageSize, offset, paging);
 
 			if (paging) {
 				Model.count({}, function( err, count){
@@ -131,6 +127,7 @@ module.exports = function(modelName, sortBy) {
 				});
 			}
 		},
+
 		getByID: function(req, res, next, id) {
 			if (!mongoose.Types.ObjectId.isValid(id)) {
 				return res.status(400).send({
@@ -139,13 +136,14 @@ module.exports = function(modelName, sortBy) {
 			}
 
 			Model.findById(id).exec(function(err, model) {
-				if (err) return next(err);
-				if (!model) {
+				if (err) {
+			      return next(err);
+			    } else if (!model) {
 					return res.status(404).send({
 		  				message: modelName + ' not found'
 		  			});
 				}
-				req.modelName = model;
+				req.model = model;
 				next();
 			});
 		}

@@ -22,7 +22,8 @@ angular.module('offers').controller('OffersController', ['$scope', '$http', '$st
       // Create new Offer object
       var offer = new Offers({
 				title: this.title,
-				site: this.site
+				site: this.site,
+				url: this.url
 			});
 
       // Redirect after save
