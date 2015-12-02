@@ -1,0 +1,20 @@
+<section ng-controller="WishesController" ng-init="find()">
+    <div class="page-header">
+        <h1>Wishes</h1>
+    </div>
+    <div class="list-group">
+        <a ng-repeat="wish in wishes" ui-sref="wishes.view({wishId: wish._id})" class="list-group-item">
+			<small class="list-group-item-text">
+				Posted on
+				<span ng-bind="wish.created | date:'medium'"></span>
+				by
+				<span ng-bind="wish.user.displayName"></span>
+			</small>
+			<h4 class="list-group-item-heading" data-ng-bind="wish.contains"></h4>
+			<p class="list-group-item-text" ng-bind="wish.email"></p>
+        </a>
+    </div>
+    <div class="alert alert-warning text-center" ng-if="wishes.$resolved && !wishes.length">
+        No wishes yet, why don't you <a ui-sref="wishes.create">create one</a>?
+      </div>
+</section>

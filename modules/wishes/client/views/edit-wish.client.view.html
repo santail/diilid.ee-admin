@@ -1,0 +1,35 @@
+<section ng-controller="WishesController" ng-init="findOne()">
+    <div class="page-header">
+        <h1>Edit Wish</h1>
+    </div>
+    <div class="col-md-12">
+        <form name="wishForm" class="form-horizontal" ng-submit="update(wishForm.$valid)" novalidate>
+            <fieldset>
+                <div class="form-group" show-errors>
+                    <label for="contains">contains</label>
+                    <input name="contains" type="text" ng-model="wish.contains" id="contains" class="form-control" placeholder="contains" required>
+                    <div ng-messages="wishForm.contains.$error" role="alert">
+                        <p class="help-block error-text" ng-message="required">Wish contains is required.</p>
+                      </div>
+                </div>
+                <div class="form-group" show-errors>
+                    <label for="email">email</label>
+                    <input name="email" type="text" ng-model="wish.email" id="email" class="form-control" placeholder="email" required>
+                    <div ng-messages="wishForm.email.$error" role="alert">
+                        <p class="help-block error-text" ng-message="required">Wish email is required.</p>
+                      </div>
+                </div>
+                <div class="form-group">
+                    <label for="phone">phone</label>
+                    <input name="phone" type="text" ng-model="wish.phone" id="phone" class="form-control" placeholder="phone" required>
+                </div>
+                <div class="form-group">
+                    <input type="submit" value="Update" class="btn btn-default">
+                </div>
+				<div ng-show="error" class="text-danger">
+					<strong ng-bind="error"></strong>
+				</div>
+            </fieldset>
+        </form>
+    </div>
+</section>
