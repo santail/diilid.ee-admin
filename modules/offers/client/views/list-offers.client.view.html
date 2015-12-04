@@ -13,7 +13,9 @@
         <table ng-table="tableParams" show-filter="true">
             <tr ng-repeat="offer in $data">
                 <td data-title="'Title'" sortable="'title'" filter="{ 'title': 'text' }">{{offer.title}}</td>
+                <td data-title="'Price'" sortable="'sales'" filter="{ 'sales': 'text' }">{{offer.sales}}</td>
                 <td data-title="'Site'" sortable="'site'" filter="{'site': 'select'}" filter-data="sites($column)">{{offer.site}}</td>
+                <td data-title="''" sortable="'active'" filter="{ 'active': 'text' }">{{offer.active}}</td>
                 <td>
                     <div class="table-actions">
                 <td>

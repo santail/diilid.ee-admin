@@ -33,6 +33,46 @@
   			      label: 'URL:',
   						disabled: disabled
   			    }
+  				},
+  				{
+  					key: 'original',
+  					type: 'input',
+  					templateOptions: {
+  			      label: 'Original price:',
+  						disabled: disabled
+  			    }
+  				},
+  				{
+  					key: 'sales',
+  					type: 'input',
+  					templateOptions: {
+  			      label: 'Sales price:',
+  						disabled: disabled
+  			    }
+  				},
+  				{
+  					key: 'discount',
+  					type: 'input',
+  					templateOptions: {
+  			      label: 'Discount:',
+  						disabled: disabled
+  			    }
+  				},
+  				{
+  					key: 'period',
+  					type: 'input',
+  					templateOptions: {
+  			      label: 'Sales period:',
+  						disabled: disabled
+  			    }
+  				},
+  				{
+  					key: 'active',
+  					type: 'checkbox',
+  					templateOptions: {
+  			      label: 'Acive:',
+  						disabled: disabled
+  			    }
   				}
 
   			];

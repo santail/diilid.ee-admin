@@ -28,7 +28,10 @@ var OfferSchema = new Schema({
 		'default': Date.now
 	},
 	description: Schema.Types.Mixed,
-	price: Schema.Types.Mixed,
+	original: String,
+	sales: String,
+	discount: String,
+	period: String,
 	active: Boolean,
 	language: String,
 	user: {
