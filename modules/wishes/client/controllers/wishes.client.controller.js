@@ -1,10 +1,16 @@
 'use strict';
 
 // Wishes controller
-angular.module('wishes').controller('WishesController', ['$scope', '$stateParams', '$location', 'Authentication', 'Wishes',
-  function ($scope, $stateParams, $location, Authentication, Wishes) {
+angular.module('wishes').controller('WishesController', ['$scope', '$stateParams', '$location', 'Authentication', 'Wishes', 'TableSettings', 'WishesForm',
+  function ($scope, $stateParams, $location, Authentication, Wishes, TableSettings, WishesForm) {
     $scope.authentication = Authentication;
-
+		$scope.tableParams = TableSettings.getParams(Wishes);
+		$scope.wish = {};
+		
+		$scope.setFormFields = function(disabled) {
+			$scope.formFields = WishesForm.getFormFields(disabled);
+		};
+		
     // Create new Wish
     $scope.create = function (isValid) {
       $scope.error = null;
@@ -82,5 +88,15 @@ angular.module('wishes').controller('WishesController', ['$scope', '$stateParams
         wishId: $stateParams.wishId
       });
     };
+    
+    $scope.toViewWish = function() {
+			$scope.wish = Wishes.get( {wishId: $stateParams.wishId} );
+			$scope.setFormFields(true);
+		};
+
+		$scope.toEditWish = function() {
+			$scope.wish = Wishes.get( {wishId: $stateParams.wishId} );
+			$scope.setFormFields(false);
+		};
   }
 ]);

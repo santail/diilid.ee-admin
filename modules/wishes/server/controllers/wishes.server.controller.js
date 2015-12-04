@@ -74,16 +74,53 @@ exports.delete = function (req, res) {
 /**
  * List of Wishes
  */
-exports.list = function (req, res) {
-  Wish.find().sort('-created').populate('user', 'displayName').exec(function (err, wishes) {
-    if (err) {
-      return res.status(400).send({
-        message: errorHandler.getErrorMessage(err)
-      });
-    } else {
-      res.json(wishes);
-    }
-  });
+exports.list = function(req, res) {
+
+	var sort;
+	var sortObject = {};
+	var count = req.query.count || 5;
+	var page = req.query.page || 1;
+
+	var filter = {
+		filters : {
+			mandatory : {
+				contains: req.query.filter
+			}
+		}
+	};
+
+	var pagination = {
+		start: (page - 1) * count,
+		count: count
+	};
+
+	if (req.query.sorting) {
+		var sortKey = Object.keys(req.query.sorting)[0];
+		var sortValue = req.query.sorting[sortKey];
+		sortObject[sortValue] = sortKey;
+	}
+	else {
+		sortObject.desc = '_id';
+	}
+
+	sort = {
+		sort: sortObject
+	};
+
+	Wish
+		.find()
+		.filter(filter)
+		.order(sort)
+		.page(pagination, function(err, wishes){
+			if (err) {
+				return res.status(400).send({
+					message: errorHandler.getErrorMessage(err)
+				});
+			} else {
+				res.jsonp(wishes);
+			}
+		});
+
 };
 
 /**

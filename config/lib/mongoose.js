@@ -20,6 +20,8 @@ module.exports.loadModels = function () {
 module.exports.connect = function (cb) {
   var _this = this;
 
+  require('mongoose-middleware').initialize(mongoose);
+
   var db = mongoose.connect(config.db.uri, config.db.options, function (err) {
     // Log Error
     if (err) {
