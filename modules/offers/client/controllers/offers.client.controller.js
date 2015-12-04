@@ -69,27 +69,6 @@ angular.module('offers').controller('OffersController', ['$scope', '$stateParams
 			$scope.setFormFields(false);
 		};
 
-		$scope.names2 = function () {
-            var def = $q.defer(),
-                 arr = [],
-                 names = [];
-
-            $scope.$watch('tableParams', function () {
-
-
-                angular.forEach($scope.tableParams.data, function (item) {
-                        arr.push(item.name);
-                        names.push({
-                            'id': item.name,
-                            'title': item.name
-                        });
-                });
-
-            });
-            def.resolve(names);
-            return def;
-        };
-
 		$scope.sites = function () {
             var def = $q.defer(),
                 sites = [];
