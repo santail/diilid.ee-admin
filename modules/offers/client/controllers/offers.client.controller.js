@@ -74,8 +74,6 @@ angular.module('offers').controller('OffersController', ['$scope', '$stateParams
                 sites = [];
 
             Sites.query(function (res) {
-            	console.log(res);
-
             	angular.forEach(res.results, function (item) {
                         sites.push({
                             'id': item.url,
