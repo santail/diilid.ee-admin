@@ -74,7 +74,6 @@
   						disabled: disabled
   			    }
   				}
-
   			];
 
         return fields;
