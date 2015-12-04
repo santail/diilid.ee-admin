@@ -2,8 +2,8 @@
     'use strict';
 
     angular
-        .module('wishes')
-        .factory('WishesForm', factory);
+        .module('offers')
+        .factory('OffersForm', factory);
 
     function factory() {
 
@@ -11,30 +11,26 @@
 
         var fields = [
   				{
-  					key: 'contains',
+  					key: 'title',
   					type: 'input',
-  					validation: {
-              show: true
-            },
   					templateOptions: {
-  					  required: true,
-  			      label: 'Contains:',
+  			      label: 'Name:',
   						disabled: disabled
   			    }
   				},
   				{
-  					key: 'email',
+  					key: 'site',
   					type: 'input',
   					templateOptions: {
-              type: 'email',
-              label: 'Email'
-            },
+  			      label: 'Site:',
+  						disabled: disabled
+  			    }
   				},
   				{
-  					key: 'phone',
+  					key: 'url',
   					type: 'input',
   					templateOptions: {
-  			      label: 'Phone:',
+  			      label: 'URL:',
   						disabled: disabled
   			    }
   				}

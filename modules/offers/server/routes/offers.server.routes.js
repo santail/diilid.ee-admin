@@ -19,5 +19,5 @@ module.exports = function (app) {
     .delete(offers.delete);
 
   // Finish by binding the offer middleware
-  app.param('offerId', offers.getByID);
+  app.param('offerId', offers.offerByID);
 };

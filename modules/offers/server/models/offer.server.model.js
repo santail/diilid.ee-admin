@@ -30,7 +30,11 @@ var OfferSchema = new Schema({
 	description: Schema.Types.Mixed,
 	price: Schema.Types.Mixed,
 	active: Boolean,
-	language: String
+	language: String,
+	user: {
+		type: Schema.ObjectId,
+		ref: 'User'
+	}
 }, {
 	autoIndex: process.env.NODE_ENV === 'development'
 });

@@ -63,10 +63,6 @@ a:hover .header-profile-image {
   height: 60px;
 }
 
-.ng-table-filters .filter {
-  vertical-align: top;
-}
-
 .ng-table > thead > tr > th {
   padding-bottom: 0;
   padding-top: 0;
@@ -78,6 +74,11 @@ a:hover .header-profile-image {
 
 .table-actions {
   width: 130px;
+}
+
+.ng-table th.filter .input-filter {
+  margin: 12px;
+  width: 90%;
 }
 
 .ng-table th.filter .input-filter {

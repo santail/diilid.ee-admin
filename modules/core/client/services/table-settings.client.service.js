@@ -26,8 +26,8 @@
 
       var settings = {
         total: 0,
-        counts: [5, 10, 15],
-        filterDelay: 0,
+        counts: [10, 25, 50, 100],
+        filterDelay: 300,
       };
 
       /* jshint ignore:start */

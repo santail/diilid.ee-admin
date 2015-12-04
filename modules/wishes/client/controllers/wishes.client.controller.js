@@ -22,20 +22,11 @@ angular.module('wishes').controller('WishesController', ['$scope', '$stateParams
       }
 
       // Create new Wish object
-      var wish = new Wishes({
-        contains: this.contains,
-        email: this.email,
-        phone: this.phone
-      });
+      var wish = new Wishes($scope.offers2);
 
       // Redirect after save
       wish.$save(function (response) {
         $location.path('wishes/' + response._id);
-
-        // Clear form fields
-        $scope.contains = '';
-        $scope.email = '';
-        $scope.phone = '';
       }, function (errorResponse) {
         $scope.error = errorResponse.data.message;
       });

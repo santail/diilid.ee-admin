@@ -1,35 +1,35 @@
-<section data-ng-controller="OffersController" data-ng-init="find()">
+<section data-ng-controller="OffersController">
     <div class="page-header">
         <h1>Offers</h1>
     </div>
-    <!-- this is the new search input field -->
-    <div class="form-group">
-        <input type="text" ng-model="search" typeahead="offer.title as offer.title for offer in typeahead($viewValue)" typeahead-wait-ms="300" typeahead-min-length="3" typeahead-on-select="find($item)" placeholder="Search Offer..." typeahead-loading="loadingLocations" typeahead-no-results="noResults" class="form-control">
-        <i ng-show="loadingLocations" class="glyphicon glyphicon-refresh"></i>
-        <div ng-show="noResults">
-          <i class="glyphicon glyphicon-remove"></i> No Results Found
-        </div>
+
+    <div class="pull-right">
+      <a type="button" class="btn btn-success" href="/#!/offers/create">
+        <i class="glyphicon glyphicon-open"></i> New Offer
+      </a>
     </div>
 
-    <!-- end -->
-    <div class="list-group">
-        <a ng-repeat="offer in offers" ui-sref="offers.view({offerId: offer._id})" class="list-group-item">
-          <small class="list-group-item-text">
-            Posted on
-            <span ng-bind="offer.created | date:'mediumDate'"></span>
-            by
-            <span ng-bind="offer.user.displayName"></span>
-          </small>
-            <h4 class="list-group-item-heading" ng-bind="offer.title"></h4>
-            <p class="list-group-item-text" ng-bind="offer.site"></p>
-            <p class="list-group-item-text" ng-bind="offer.url"></p>
-        </a>
+    <div>
+        <table ng-table="tableParams" show-filter="true">
+            <tr ng-repeat="offer in $data">
+                <td data-title="'Title'" sortable="'title'" filter="{ 'title': 'text' }">{{offer.title}}</td>
+                <td data-title="'Site'" sortable="'site'" filter="{'site': 'select'}" filter-data="sites($column)">{{offer.site}}</td>
+                <td>
+                    <div class="table-actions">
+                <td>
+                   <div class="table-actions">
+                        <a class="btn btn-default" title="View" href="/#!/offers/{{offer._id}}">
+                            <span class="glyphicon glyphicon-eye-open"></span>
+                        </a>
+                        <a class="btn btn-default" title="Edit" href="/#!/offers/{{offer._id}}/edit">
+                            <span class="glyphicon glyphicon-edit"></span>
+                        </a>
+                        <a class="btn btn-danger" title="Remove" ng-really-message="Are you sure ?" ng-really-click="remove(offer)" item="offer">
+                  				<span class="glyphicon glyphicon-remove-circle"></span>
+                  			</a>
+                    </div>
+                </td>
+            </tr>
+        </table>
     </div>
-
-    <pagination boundary-links="true" max-size="10" items-per-page="pageSize" total-items="total" ng-model="currentPage" ng-change="find(search)" ng-show="total > pageSize"></pagination>
-
-    <!-- end -->
-    <div class="alert alert-warning text-center" data-ng-if="offers.$resolved && !offers.length">
-		No offers yet, why don't you <a ui-sref="offers.create">create one</a>?
-	</div>
 </section>

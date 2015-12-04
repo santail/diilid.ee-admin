@@ -1,9 +1,9 @@
-<section data-ng-controller="SitesController" data-ng-init="setFormFields(false)">
+<section -ng-controller="SitesController" ng-init="setFormFields(false)">
     <div class="page-header">
         <h1>New Site</h1>
     </div>
     <div class="col-md-12">
-        <form class="form-horizontal" data-ng-submit="create()" novalidate>
+        <form class="form-horizontal" ng-submit="create()" novalidate>
 
           <formly-form model="site" fields="formFields">
     			</formly-form>
@@ -18,8 +18,8 @@
               </a>
           </div>
 
-          <div data-ng-show="error" class="alert alert-danger form-group">
-            <strong data-ng-bind="error"></strong>
+          <div ng-show="error" class="alert alert-danger form-group">
+            <strong ng-bind="error"></strong>
           </div>
 
         </form>

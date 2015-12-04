@@ -1,35 +1,27 @@
-<section ng-controller="WishesController">
+<section ng-controller="WishesController" ng-init="setFormFields(false)">
     <div class="page-header">
         <h1>New Wish</h1>
     </div>
     <div class="col-md-12">
-        <form name="wishForm" class="form-horizontal" ng-submit="create(wishForm.$valid)" novalidate>
-            <fieldset>
-                <div class="form-group" show-errors>
-                  <label for="contains">Contains</label>
-                  <input name="contains" type="text" ng-model="contains" id="contains" class="form-control" placeholder="Contains" required>
-                  <div ng-messages="wishForm.contains.$error" role="alert">
-                    <p class="help-block error-text" ng-message="required">Wish contains is required.</p>
-                  </div>
-                </div>
-                <div class="form-group" show-errors>
-                    <label for="email">email</label>
-                    <input name="email" type="text" ng-model="email" id="email" class="form-control" placeholder="email" required>
-                    <div ng-messages="wishForm.email.$error" role="alert">
-                        <p class="help-block error-text" ng-message="required">Wish email is required.</p>
-                    </div>
-                </div>
-                <div class="form-group">
-                    <label for="phone">phone</label>
-                    <input name="phone" type="text" ng-model="phone" id="phone" class="form-control" placeholder="phone">
-                </div>
-                <div class="form-group">
-                    <input type="submit" class="btn btn-default">
-                </div>
-                <div ng-show="error" class="text-danger">
-                    <strong ng-bind="error"></strong>
-                </div>
-            </fieldset>
+        <form class="form-horizontal" data-ng-submit="create(wishForm.$valid)" novalidate>
+
+          <formly-form model="wish" fields="formFields">
+    	  </formly-form>
+
+          <hr/>
+          <div class="form-group">
+              <button type="submit" class="btn btn-success">
+                <i class="glyphicon glyphicon-ok"></i> Save
+              </button>
+              <a class="btn btn-danger" href="/#!/wishes">
+                <i class="glyphicon glyphicon-remove"></i> Cancel
+              </a>
+          </div>
+
+          <div ng-show="error" class="alert alert-danger form-group">
+            <strong ng-bind="error"></strong>
+          </div>
+
         </form>
     </div>
 </section>
