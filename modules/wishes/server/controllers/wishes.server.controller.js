@@ -6,7 +6,8 @@
 var path = require('path'),
   mongoose = require('mongoose'),
   Wish = mongoose.model('Wish'),
-  errorHandler = require(path.resolve('./modules/core/server/controllers/errors.server.controller'));
+  errorHandler = require(path.resolve('./modules/core/server/controllers/errors.server.controller')),
+  _ = require('lodash');
 
 /**
  * Create a wish
@@ -39,9 +40,7 @@ exports.read = function (req, res) {
 exports.update = function (req, res) {
   var wish = req.wish;
 
-  wish.contains = req.body.contains;
-  wish.email = req.body.email;
-  wish.phone = req.body.phone;
+	wish = _.extend(wish , req.body);
 
   wish.save(function (err) {
     if (err) {

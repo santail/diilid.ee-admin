@@ -4,13 +4,13 @@
 angular.module('wishes').controller('WishesController', ['$scope', '$stateParams', '$location', 'Authentication', 'Wishes', 'TableSettings', 'WishesForm',
   function ($scope, $stateParams, $location, Authentication, Wishes, TableSettings, WishesForm) {
     $scope.authentication = Authentication;
-		$scope.tableParams = TableSettings.getParams(Wishes);
-		$scope.wish = {};
-		
-		$scope.setFormFields = function(disabled) {
-			$scope.formFields = WishesForm.getFormFields(disabled);
-		};
-		
+    $scope.tableParams = TableSettings.getParams(Wishes);
+    $scope.wish = {};
+
+    $scope.setFormFields = function (disabled) {
+      $scope.formFields = WishesForm.getFormFields(disabled);
+    };
+
     // Create new Wish
     $scope.create = function (isValid) {
       $scope.error = null;
@@ -22,11 +22,11 @@ angular.module('wishes').controller('WishesController', ['$scope', '$stateParams
       }
 
       // Create new Wish object
-      var wish = new Wishes ({
-  			contains: this.contains,
-  			email: this.email,
-  			phone: this.phone
-  		});
+      var wish = new Wishes({
+        contains: this.contains,
+        email: this.email,
+        phone: this.phone
+      });
 
       // Redirect after save
       wish.$save(function (response) {
@@ -45,13 +45,9 @@ angular.module('wishes').controller('WishesController', ['$scope', '$stateParams
     $scope.remove = function (wish) {
       if (wish) {
         wish.$remove();
-
-        for (var i in $scope.wishes) {
-          if ($scope.wishes[i] === wish) {
-            $scope.wishes.splice(i, 1);
-          }
-        }
-      } else {
+        $scope.tableParams.reload();
+      }
+      else {
         $scope.wish.$remove(function () {
           $location.path('wishes');
         });
@@ -77,26 +73,18 @@ angular.module('wishes').controller('WishesController', ['$scope', '$stateParams
       });
     };
 
-    // Find a list of Wishes
-    $scope.find = function () {
-      $scope.wishes = Wishes.query();
-    };
-
-    // Find existing Wish
-    $scope.findOne = function () {
+    $scope.toViewWish = function () {
       $scope.wish = Wishes.get({
         wishId: $stateParams.wishId
       });
+      $scope.setFormFields(true);
     };
-    
-    $scope.toViewWish = function() {
-			$scope.wish = Wishes.get( {wishId: $stateParams.wishId} );
-			$scope.setFormFields(true);
-		};
 
-		$scope.toEditWish = function() {
-			$scope.wish = Wishes.get( {wishId: $stateParams.wishId} );
-			$scope.setFormFields(false);
-		};
+    $scope.toEditWish = function () {
+      $scope.wish = Wishes.get({
+        wishId: $stateParams.wishId
+      });
+      $scope.setFormFields(false);
+    };
   }
 ]);

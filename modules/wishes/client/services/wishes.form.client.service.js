@@ -20,7 +20,7 @@
   				},
   				{
   					key: 'email',
-  					type: 'input',
+  					type: 'email',
   					templateOptions: {
   			      label: 'email:',
   						disabled: disabled
