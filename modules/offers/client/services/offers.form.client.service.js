@@ -70,7 +70,7 @@
   					key: 'active',
   					type: 'checkbox',
   					templateOptions: {
-  			      label: 'Acive:',
+  			      label: 'Active:',
   						disabled: disabled
   			    }
   				}

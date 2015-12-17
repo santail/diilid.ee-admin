@@ -30,7 +30,7 @@
   					key: 'is_active',
   					type: 'checkbox',
   					templateOptions: {
-  			      label: 'Acive:',
+  			      label: 'Active:',
   						disabled: disabled
   			    }
   				}

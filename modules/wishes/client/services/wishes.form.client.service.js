@@ -13,9 +13,6 @@
   				{
   					key: 'contains',
   					type: 'input',
-  					validation: {
-              show: true
-            },
   					templateOptions: {
   					  required: true,
   			      label: 'Contains:',
@@ -27,7 +24,8 @@
   					type: 'input',
   					templateOptions: {
               type: 'email',
-              label: 'Email'
+              label: 'Email',
+  						disabled: disabled
             },
   				},
   				{

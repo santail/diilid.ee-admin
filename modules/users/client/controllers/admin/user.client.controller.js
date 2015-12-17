@@ -8,10 +8,11 @@ angular.module('users.admin').controller('UserController', ['$scope', '$state', 
     $scope.remove = function (user) {
       if (confirm('Are you sure you want to delete this user?')) {
         if (user) {
-          user.$remove();
-
-          $scope.users.splice($scope.users.indexOf(user), 1);
-        } else {
+          user.$remove(function () {
+            $scope.users.splice($scope.users.indexOf(user), 1);
+          });
+        }
+        else {
           $scope.user.$remove(function () {
             $state.go('admin.users');
           });

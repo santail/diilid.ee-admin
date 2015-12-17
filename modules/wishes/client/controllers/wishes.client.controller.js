@@ -13,16 +13,8 @@ angular.module('wishes').controller('WishesController', ['$scope', '$stateParams
 
     // Create new Wish
     $scope.create = function (isValid) {
-      $scope.error = null;
-
-      if (!isValid) {
-        $scope.$broadcast('show-errors-check-validity', 'wishForm');
-
-        return false;
-      }
-
       // Create new Wish object
-      var wish = new Wishes($scope.offers2);
+      var wish = new Wishes($scope.wish);
 
       // Redirect after save
       wish.$save(function (response) {
@@ -35,26 +27,24 @@ angular.module('wishes').controller('WishesController', ['$scope', '$stateParams
     // Remove existing Wish
     $scope.remove = function (wish) {
       if (wish) {
-        wish.$remove();
-        $scope.tableParams.reload();
-      }
-      else {
-        $scope.wish.$remove(function () {
-          $location.path('wishes');
-        });
-      }
+				wish = Wishes.get({
+					wishId: wish._id
+				}, function () {
+					wish.$remove(function() {
+			      $scope.tableParams.reload();
+			    });
+				});
+
+			}
+			else {
+				$scope.wish.$remove(function () {
+					$location.path('wishes');
+				});
+			}
     };
 
     // Update existing Wish
     $scope.update = function (isValid) {
-      $scope.error = null;
-
-      if (!isValid) {
-        $scope.$broadcast('show-errors-check-validity', 'wishForm');
-
-        return false;
-      }
-
       var wish = $scope.wish;
 
       wish.$update(function () {

@@ -31,28 +31,19 @@ angular.module('sites').controller('SitesController', ['$scope', '$stateParams',
 				site = Sites.get({
 					siteId: site._id
 				}, function () {
-					site.$remove();
-					$scope.tableParams.reload();
+					site.$remove(function () {
+						$scope.tableParams.reload();
+					});
 				});
-
 			}
 			else {
 				$scope.site.$remove(function () {
 					$location.path('sites');
 				});
 			}
-
 		};
 
 		$scope.update = function (isValid) {
-			$scope.error = null;
-
-			if (!isValid) {
-				$scope.$broadcast('show-errors-check-validity', 'siteForm');
-
-				return false;
-			}
-
 			var site = $scope.site;
 
 			site.$update(function () {

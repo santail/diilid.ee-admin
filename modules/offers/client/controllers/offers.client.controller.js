@@ -30,8 +30,9 @@ angular.module('offers').controller('OffersController', ['$scope', '$stateParams
 				offer = Offers.get({
 					offerId: offer._id
 				}, function () {
-					offer.$remove();
-					$scope.tableParams.reload();
+					offer.$remove(function() {
+				      $scope.tableParams.reload();
+				    });
 				});
 
 			}
