@@ -74,15 +74,21 @@ angular.module('offers').controller('OffersController', ['$scope', '$stateParams
             var def = $q.defer(),
                 sites = [];
 
-            Sites.query(function (res) {
-            	angular.forEach(res.results, function (item) {
+            Sites.all(function (res) {
+            	console.log(res);
+
+				res.$promise.then(function (result) {
+				    angular.forEach(result, function (item) {
                         sites.push({
                             'id': item.url,
                             'title': item.name
                         });
-                });
+	                });
 
-	            def.resolve(sites);
+		            def.resolve(sites);
+				});
+
+
             });
 
             return def;

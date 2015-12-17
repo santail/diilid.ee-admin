@@ -13,6 +13,11 @@ angular.module('sites').factory('Sites', ['$resource',
 				method: 'GET',
 				isArray: false,
 				cancellable: true
+			},
+			all: {
+				url: 'api/sites/all',
+				method: 'GET',
+				isArray: true
 			}
 		});
 	}

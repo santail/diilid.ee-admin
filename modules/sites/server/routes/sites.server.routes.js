@@ -11,6 +11,10 @@ module.exports = function (app) {
   app.route('/api/sites').all(sitesPolicy.isAllowed)
     .get(sites.list)
     .post(sites.create);
+    
+  // Sites collection routes
+  app.route('/api/sites/all').all(sitesPolicy.isAllowed)
+    .get(sites.all);
 
   // Single site routes
   app.route('/api/sites/:siteId').all(sitesPolicy.isAllowed)
