@@ -29,7 +29,7 @@ var WishSchema = new Schema({
 	},
 	language: {
 		type: String,
-		default: 'rus',
+		default: 'none',
 		trim: true
 	},
 	created: {
