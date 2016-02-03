@@ -53,7 +53,8 @@
 		it('$scope.find() should create an array with at least one Wish object fetched from XHR', inject(function(Wishes) {
 			// Create sample Wish using the Wishes service
 			var sampleWish = new Wishes({
-				contains: 'New Wish'
+				contains: 'New Wish',
+				email: 'some@email.com'
 			});
 
 			// Create a sample Wishes array that includes the new Wish
@@ -73,7 +74,8 @@
 		it('$scope.findOne() should create an array with one Wish object fetched from XHR using a wishId URL parameter', inject(function(Wishes) {
 			// Define a sample Wish object
 			var sampleWish = new Wishes({
-				contains: 'New Wish'
+				contains: 'New Wish',
+				email: 'some@email.com'
 			});
 
 			// Set the URL parameter
@@ -93,7 +95,8 @@
 		it('$scope.create() with valid form data should send a POST request with the form input values and then locate to new object URL', inject(function(Wishes) {
 			// Create a sample Wish object
 			var sampleWishPostData = new Wishes({
-				contains: 'New Wish'
+				contains: 'New Wish',
+				email: 'some@email.com'
 			});
 
 			// Create a sample Wish response
@@ -104,6 +107,8 @@
 
 			// Fixture mock form input values
 			scope.contains = 'New Wish';
+			scope.email = 'some@email.com';
+
 
 			// Set POST response
 			$httpBackend.expectPOST('wishes', sampleWishPostData).respond(sampleWishResponse);
@@ -114,6 +119,7 @@
 
 			// Test form inputs are reset
 			expect(scope.contains).toEqual('');
+			expect(scope.email).toEqual('');
 
 			// Test URL redirection after the Wish was created
 			expect($location.path()).toBe('/wishes/' + sampleWishResponse._id);
@@ -123,7 +129,8 @@
 			// Define a sample Wish put data
 			var sampleWishPutData = new Wishes({
 				_id: '525cf20451979dea2c000001',
-				contains: 'New Wish'
+				contains: 'New Wish',
+				email: 'some@email.com'
 			});
 
 			// Mock Wish in scope

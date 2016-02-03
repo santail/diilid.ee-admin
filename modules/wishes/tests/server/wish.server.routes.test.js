@@ -2,7 +2,7 @@
 
 var should = require('should'),
 	request = require('supertest'),
-	app = require('../../server'),
+	app = require('../../../../server'),
 	mongoose = require('mongoose'),
 	User = mongoose.model('User'),
 	Wish = mongoose.model('Wish'),
@@ -38,7 +38,8 @@ describe('Wish CRUD tests', function() {
 		// Save a user to the test db and create new Wish
 		user.save(function() {
 			wish = {
-				name: 'Wish Name'
+				contains: 'Wish Name',
+				email: 'some@email.com'
 			};
 
 			done();
@@ -75,7 +76,7 @@ describe('Wish CRUD tests', function() {
 
 								// Set assertions
 								(wishes[0].user._id).should.equal(userId);
-								(wishes[0].name).should.match('Wish Name');
+								(wishes[0].contains).should.match('Wish Name');
 
 								// Call the assertion callback
 								done();
@@ -94,9 +95,9 @@ describe('Wish CRUD tests', function() {
 			});
 	});
 
-	it('should not be able to save Wish instance if no name is provided', function(done) {
-		// Invalidate name field
-		wish.name = '';
+	it('should not be able to save Wish instance if no body is provided', function(done) {
+		// Invalidate contains field
+		wish.contains = '';
 
 		agent.post('/auth/signin')
 			.send(credentials)
@@ -115,7 +116,7 @@ describe('Wish CRUD tests', function() {
 					.end(function(wishSaveErr, wishSaveRes) {
 						// Set message assertion
 						(wishSaveRes.body.message).should.match('Please fill Wish name');
-						
+
 						// Handle Wish save error
 						done(wishSaveErr);
 					});
@@ -142,7 +143,8 @@ describe('Wish CRUD tests', function() {
 						if (wishSaveErr) done(wishSaveErr);
 
 						// Update Wish name
-						wish.name = 'WHY YOU GOTTA BE SO MEAN?';
+						wish.contains = 'WHY YOU GOTTA BE SO MEAN?';
+						wish.email = 'some@email.com';
 
 						// Update existing Wish
 						agent.put('/wishes/' + wishSaveRes.body._id)
@@ -154,7 +156,8 @@ describe('Wish CRUD tests', function() {
 
 								// Set assertions
 								(wishUpdateRes.body._id).should.equal(wishSaveRes.body._id);
-								(wishUpdateRes.body.name).should.match('WHY YOU GOTTA BE SO MEAN?');
+								(wishUpdateRes.body.contains).should.match('WHY YOU GOTTA BE SO MEAN?');
+								(wishUpdateRes.body.email).should.match('some@email.com');
 
 								// Call the assertion callback
 								done();
@@ -192,7 +195,7 @@ describe('Wish CRUD tests', function() {
 			request(app).get('/wishes/' + wishObj._id)
 				.end(function(req, res) {
 					// Set assertion
-					res.body.should.be.an.Object.with.property('name', wish.name);
+					res.body.should.be.an.Object.with.property('contains', wish.contains);
 
 					// Call the assertion callback
 					done();
@@ -238,7 +241,7 @@ describe('Wish CRUD tests', function() {
 	});
 
 	it('should not be able to delete Wish instance if not signed in', function(done) {
-		// Set Wish user 
+		// Set Wish user
 		wish.user = user;
 
 		// Create new Wish model instance

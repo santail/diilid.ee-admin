@@ -53,7 +53,7 @@
 		it('$scope.find() should create an array with at least one Job object fetched from XHR', inject(function(Jobs) {
 			// Create sample Job using the Jobs service
 			var sampleJob = new Jobs({
-				title: 'New Job'
+				name: 'New Job'
 			});
 
 			// Create a sample Jobs array that includes the new Job
@@ -73,7 +73,7 @@
 		it('$scope.findOne() should create an array with one Job object fetched from XHR using a jobId URL parameter', inject(function(Jobs) {
 			// Define a sample Job object
 			var sampleJob = new Jobs({
-				title: 'New Job'
+				name: 'New Job'
 			});
 
 			// Set the URL parameter
@@ -88,56 +88,6 @@
 
 			// Test scope value
 			expect(scope.job).toEqualData(sampleJob);
-		}));
-
-		it('$scope.create() with valid form data should send a POST request with the form input values and then locate to new object URL', inject(function(Jobs) {
-			// Create a sample Job object
-			var sampleJobPostData = new Jobs({
-				title: 'New Job'
-			});
-
-			// Create a sample Job response
-			var sampleJobResponse = new Jobs({
-				_id: '525cf20451979dea2c000001',
-				title: 'New Job'
-			});
-
-			// Fixture mock form input values
-			scope.title = 'New Job';
-
-			// Set POST response
-			$httpBackend.expectPOST('jobs', sampleJobPostData).respond(sampleJobResponse);
-
-			// Run controller functionality
-			scope.create();
-			$httpBackend.flush();
-
-			// Test form inputs are reset
-			expect(scope.title).toEqual('');
-
-			// Test URL redirection after the Job was created
-			expect($location.path()).toBe('/jobs/' + sampleJobResponse._id);
-		}));
-
-		it('$scope.update() should update a valid Job', inject(function(Jobs) {
-			// Define a sample Job put data
-			var sampleJobPutData = new Jobs({
-				_id: '525cf20451979dea2c000001',
-				title: 'New Job'
-			});
-
-			// Mock Job in scope
-			scope.job = sampleJobPutData;
-
-			// Set PUT response
-			$httpBackend.expectPUT(/jobs\/([0-9a-fA-F]{24})$/).respond();
-
-			// Run controller functionality
-			scope.update();
-			$httpBackend.flush();
-
-			// Test URL location to new object
-			expect($location.path()).toBe('/jobs/' + sampleJobPutData._id);
 		}));
 
 		it('$scope.remove() should send a DELETE request with a valid jobId and remove the Job from the scope', inject(function(Jobs) {

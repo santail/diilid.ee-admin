@@ -27,9 +27,10 @@ describe('Site Model Unit Tests:', function() {
 			password: 'password'
 		});
 
-		user.save(function() { 
+		user.save(function() {
 			site = new Site({
 				name: 'Site Name',
+				url: 'http://some.url',
 				user: user
 			});
 
@@ -45,7 +46,7 @@ describe('Site Model Unit Tests:', function() {
 			});
 		});
 
-		it('should be able to show an error when try to save without name', function(done) { 
+		it('should be able to show an error when try to save without name', function(done) {
 			site.name = '';
 
 			return site.save(function(err) {
@@ -55,10 +56,10 @@ describe('Site Model Unit Tests:', function() {
 		});
 	});
 
-	afterEach(function(done) { 
+	afterEach(function(done) {
 		Site.remove().exec(function(){
 			User.remove().exec(function(){
-				done();	
+				done();
 			});
 		});
 	});

@@ -27,9 +27,10 @@ describe('Wish Model Unit Tests:', function() {
 			password: 'password'
 		});
 
-		user.save(function() { 
+		user.save(function() {
 			wish = new Wish({
-				name: 'Wish Name',
+				contains: 'Wish Name',
+				email: 'some@email.com',
 				user: user
 			});
 
@@ -45,8 +46,9 @@ describe('Wish Model Unit Tests:', function() {
 			});
 		});
 
-		it('should be able to show an error when try to save without name', function(done) { 
-			wish.name = '';
+		it('should be able to show an error when try to save without body', function(done) {
+			wish.contains = '';
+			wish.email = '';
 
 			return wish.save(function(err) {
 				should.exist(err);
@@ -55,7 +57,7 @@ describe('Wish Model Unit Tests:', function() {
 		});
 	});
 
-	afterEach(function(done) { 
+	afterEach(function(done) {
 		Wish.remove().exec();
 		User.remove().exec();
 

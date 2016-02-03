@@ -2,7 +2,7 @@
 
 var should = require('should'),
 	request = require('supertest'),
-	app = require('../../server'),
+	app = require('../../../../server'),
 	mongoose = require('mongoose'),
 	User = mongoose.model('User'),
 	Site = mongoose.model('Site'),
@@ -115,7 +115,7 @@ describe('Site CRUD tests', function() {
 					.end(function(siteSaveErr, siteSaveRes) {
 						// Set message assertion
 						(siteSaveRes.body.message).should.match('Please fill Site name');
-						
+
 						// Handle Site save error
 						done(siteSaveErr);
 					});
@@ -238,7 +238,7 @@ describe('Site CRUD tests', function() {
 	});
 
 	it('should not be able to delete Site instance if not signed in', function(done) {
-		// Set Site user 
+		// Set Site user
 		site.user = user;
 
 		// Create new Site model instance
@@ -264,7 +264,7 @@ describe('Site CRUD tests', function() {
 		User.remove().exec(function(){
 			Site.remove().exec(function(){
 				done();
-			});	
+			});
 		});
 	});
 });
