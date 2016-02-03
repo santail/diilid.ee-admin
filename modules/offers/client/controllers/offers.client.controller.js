@@ -75,8 +75,6 @@ angular.module('offers').controller('OffersController', ['$scope', '$stateParams
                 sites = [];
 
             Sites.all(function (res) {
-            	console.log(res);
-
 				res.$promise.then(function (result) {
 				    angular.forEach(result, function (item) {
                         sites.push({
@@ -87,8 +85,6 @@ angular.module('offers').controller('OffersController', ['$scope', '$stateParams
 
 		            def.resolve(sites);
 				});
-
-
             });
 
             return def;
