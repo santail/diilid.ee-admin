@@ -1,8 +1,8 @@
 'use strict';
 
 // jobs controller
-angular.module('jobs').controller('JobsController', ['$scope', '$stateParams', '$location', '$q', 'Authentication', 'Jobs', 'TableSettings', 'Sites',
-	function ($scope, $stateParams, $location, $q, Authentication, Jobs, TableSettings, Sites) {
+angular.module('jobs').controller('JobsController', ['$scope', '$stateParams', '$location', '$q', 'Authentication', 'Jobs', 'TableSettings',
+	function ($scope, $stateParams, $location, $q, Authentication, Jobs, TableSettings) {
 		$scope.authentication = Authentication;
 		$scope.tableParams = TableSettings.getParams(Jobs);
 		$scope.job = {};
