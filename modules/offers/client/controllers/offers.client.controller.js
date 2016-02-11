@@ -30,9 +30,9 @@ angular.module('offers').controller('OffersController', ['$scope', '$stateParams
 				offer = Offers.get({
 					offerId: offer._id
 				}, function () {
-					offer.$remove(function() {
-				      $scope.tableParams.reload();
-				    });
+					offer.$remove(function () {
+						$scope.tableParams.reload();
+					});
 				});
 
 			}
@@ -70,25 +70,55 @@ angular.module('offers').controller('OffersController', ['$scope', '$stateParams
 			$scope.setFormFields(false);
 		};
 
+		$scope.languages = function () {
+			return [{
+					'id': 'ru',
+					'title': 'Russian'
+	            },
+				{
+					'id': 'et',
+					'title': 'Estonian'
+                },
+				{
+					'id': 'en',
+					'title': 'English'
+                },
+				{
+					'id': 'fi',
+					'title': 'Finnish'
+                }];
+		};
+
+		$scope.trueFalse = function () {
+			return [{
+					'id': true,
+					'title': 'Active'
+	            },
+				{
+					'id': false,
+					'title': 'Not active'
+                }];
+		};
+
 		$scope.sites = function () {
-            var def = $q.defer(),
-                sites = [];
+			var def = $q.defer(),
+				sites = [];
 
-            Sites.all(function (res) {
+			Sites.all(function (res) {
 				res.$promise.then(function (result) {
-				    angular.forEach(result, function (item) {
-                        sites.push({
-                            'id': item.url,
-                            'title': item.name
-                        });
-	                });
+					angular.forEach(result, function (item) {
+						sites.push({
+							'id': item.url,
+							'title': item.name
+						});
+					});
 
-		            def.resolve(sites);
+					def.resolve(sites);
 				});
-            });
+			});
 
-            return def;
-        };
+			return def;
+		};
 
 	}
 
