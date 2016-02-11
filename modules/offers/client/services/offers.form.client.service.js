@@ -35,7 +35,7 @@
   			    }
   				},
   				{
-  					key: 'original',
+  					key: 'original_price',
   					type: 'input',
   					templateOptions: {
   			      label: 'Original price:',
@@ -43,7 +43,7 @@
   			    }
   				},
   				{
-  					key: 'sales',
+  					key: 'price',
   					type: 'input',
   					templateOptions: {
   			      label: 'Sales price:',
