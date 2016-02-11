@@ -10,8 +10,13 @@
     </div>
 
     <div>
+         {{checkboxes.items}}
+
         <table ng-table="tableParams" show-filter="true">
             <tr ng-repeat="site in $data">
+                <td width="30" style="text-align: left" header="'ng-table/headers/checkbox.html'">
+                    <input type="checkbox" ng-model="checkboxes.items[site._id]" />
+                </td>
                 <td data-title="'Name'" sortable="'name'" filter="{ 'name': 'text' }">{{site.name}}</td>
                 <td data-title="'Url'" sortable="'url'" filter="{ 'url': 'text' }">{{site.url}}</td>
                 <td data-title="'Active'" sortable="'is_active'" filter="{ 'is_active': 'text' }">{{site.is_active}}</td>
@@ -32,5 +37,8 @@
                 </td>
             </tr>
         </table>
+        <script type="text/ng-template" id="ng-table/headers/checkbox.html">
+            <input type="checkbox" ng-model="checkboxes.checked" id="select_all" name="filter-checkbox" value="" />
+        </script>
     </div>
 </section>

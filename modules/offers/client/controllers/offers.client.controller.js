@@ -72,6 +72,10 @@ angular.module('offers').controller('OffersController', ['$scope', '$stateParams
 
 		$scope.languages = function () {
 			return [{
+					'id': '',
+					'title': ''
+	            },
+	            {
 					'id': 'ru',
 					'title': 'Russian'
 	            },
@@ -91,11 +95,15 @@ angular.module('offers').controller('OffersController', ['$scope', '$stateParams
 
 		$scope.trueFalse = function () {
 			return [{
-					'id': true,
+					'id': '',
+					'title': ''
+	            },
+	            {
+					'id': 'true',
 					'title': 'Active'
 	            },
 				{
-					'id': false,
+					'id': 'false',
 					'title': 'Not active'
                 }];
 		};
