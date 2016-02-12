@@ -19,6 +19,14 @@
   			    }
   				},
   				{
+  					key: 'description',
+  					type: 'textarea',
+  					templateOptions: {
+  			      label: 'Description:',
+  						disabled: disabled
+  			    }
+  				},
+  				{
   					key: 'details',
   					type: 'textarea',
   					templateOptions: {
