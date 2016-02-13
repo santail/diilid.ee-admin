@@ -136,8 +136,6 @@ exports.all = function (req, res) {
 	})
 	.sort('name')
 	.exec(function (err, sites) {
-		console.log(sites);
-
 		if (err) {
 			return res.status(400).send({
 				message: errorHandler.getErrorMessage(err)
