@@ -43,6 +43,14 @@
   			    }
   				},
   				{
+  					key: 'shop',
+  					type: 'input',
+  					templateOptions: {
+  			      label: 'Shop:',
+  						disabled: disabled
+  			    }
+  				},
+  				{
   					key: 'url',
   					type: 'input',
   					templateOptions: {
