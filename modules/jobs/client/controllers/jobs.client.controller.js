@@ -4,7 +4,7 @@
 angular.module('jobs').controller('JobsController', ['$scope', '$stateParams', '$location', '$q', 'Authentication', 'Jobs', 'TableSettings',
 	function ($scope, $stateParams, $location, $q, Authentication, Jobs, TableSettings) {
 		$scope.authentication = Authentication;
-		$scope.tableParams = TableSettings.getParams(Jobs);
+		$scope.tableParams = TableSettings.getParamsFactory('Jobs', Jobs);
 		$scope.job = {};
 
 		// Remove existing Job

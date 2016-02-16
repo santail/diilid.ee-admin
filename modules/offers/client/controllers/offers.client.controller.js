@@ -4,7 +4,7 @@
 angular.module('offers').controller('OffersController', ['$scope', '$stateParams', '$location', '$q', 'Authentication', 'Offers', 'TableSettings', 'OffersForm', 'Sites',
 	function ($scope, $stateParams, $location, $q, Authentication, Offers, TableSettings, OffersForm, Sites) {
 		$scope.authentication = Authentication;
-		$scope.tableParams = TableSettings.getParams(Offers);
+		$scope.tableParams = TableSettings.getParamsFactory('Offers', Offers);
 		$scope.offer = {};
 
 		$scope.setFormFields = function (disabled) {

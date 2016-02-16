@@ -21,7 +21,7 @@
 
       var params = {
         page: 1,
-        count: 5
+        count: 50
       };
 
       var settings = {
@@ -30,21 +30,25 @@
         filterDelay: 300,
       };
 
-      /* jshint ignore:start */
-      var tableParams = new ngTableParams(params, settings);
-      /* jshint ignore:end */
+      var entityTableParams = {};
 
-      var getParams = function(Entity) {
-        tableParams.settings({getData: getData(Entity)});
-        return tableParams;
+      var getParamsFactory = function (name, Entity) {
+        if (!entityTableParams[name]) {
+          /* jshint ignore:start */
+          var tableParams = new ngTableParams(params, settings);
+          tableParams.settings({getData: getData(Entity)});
+
+          /* jshint ignore:end */
+
+          entityTableParams[name] = tableParams;
+        }
+
+        return entityTableParams[name];
       };
 
-      var service = {
-        getParams: getParams
+      return {
+        getParamsFactory: getParamsFactory
       };
-
-      return service;
-
   }
 
 })();

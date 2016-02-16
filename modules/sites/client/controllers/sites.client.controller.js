@@ -4,7 +4,7 @@
 angular.module('sites').controller('SitesController', ['$scope', '$stateParams', '$location', 'Authentication', 'Sites', 'TableSettings', 'SitesForm',
 	function ($scope, $stateParams, $location, Authentication, Sites, TableSettings, SitesForm) {
 		$scope.authentication = Authentication;
-		$scope.tableParams = TableSettings.getParams(Sites);
+		$scope.tableParams = TableSettings.getParamsFactory('Sites', Sites);
 		$scope.site = {};
 
 		$scope.setFormFields = function (disabled) {
@@ -91,8 +91,8 @@ angular.module('sites').controller('SitesController', ['$scope', '$stateParams',
 	            unchecked += (!$scope.checkboxes.items[item._id]) || 0;
 	        });
 
-	        if ((unchecked == 0) || (checked == 0)) {
-	            $scope.checkboxes.checked = (checked == total);
+	        if ((unchecked === 0) || (checked === 0)) {
+	            $scope.checkboxes.checked = (checked === total);
 	        }
 	        // grayed checkbox
 	        angular.element(document.getElementById("select_all")).prop("indeterminate", (checked != 0 && unchecked != 0));

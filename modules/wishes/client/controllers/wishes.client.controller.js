@@ -4,7 +4,7 @@
 angular.module('wishes').controller('WishesController', ['$scope', '$stateParams', '$location', 'Authentication', 'Wishes', 'TableSettings', 'WishesForm',
   function ($scope, $stateParams, $location, Authentication, Wishes, TableSettings, WishesForm) {
     $scope.authentication = Authentication;
-    $scope.tableParams = TableSettings.getParams(Wishes);
+    $scope.tableParams = TableSettings.getParamsFactory('Wishes', Wishes);
     $scope.wish = {};
 
     $scope.setFormFields = function (disabled) {
