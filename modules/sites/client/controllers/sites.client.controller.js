@@ -66,37 +66,6 @@ angular.module('sites').controller('SitesController', ['$scope', '$stateParams',
 			});
 			$scope.setFormFields(false);
 		};
-
-		$scope.checkboxes = { 'checked': false, items: {} };
-
-	    // watch for check all checkbox
-	    $scope.$watch('checkboxes.checked', function(value) {
-	        angular.forEach($scope.tableParams.data, function(item) {
-	            if (angular.isDefined(item._id)) {
-	                $scope.checkboxes.items[item._id] = value;
-	            }
-	        });
-	    });
-
-        // watch for data checkboxes
-	    $scope.$watch('checkboxes.items', function(values) {
-	        if (!$scope.tableParams) {
-	            return;
-	        }
-	        var checked = 0, unchecked = 0,
-	            total = $scope.tableParams.data.length;
-
-	        angular.forEach($scope.tableParams.data, function(item) {
-	            checked   +=  ($scope.checkboxes.items[item._id]) || 0;
-	            unchecked += (!$scope.checkboxes.items[item._id]) || 0;
-	        });
-
-	        if ((unchecked === 0) || (checked === 0)) {
-	            $scope.checkboxes.checked = (checked === total);
-	        }
-	        // grayed checkbox
-	        angular.element(document.getElementById("select_all")).prop("indeterminate", (checked != 0 && unchecked != 0));
-	    }, true);
 	}
 
 ]);

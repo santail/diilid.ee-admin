@@ -16,7 +16,6 @@
   					$defer.resolve(response.results);
   				});
   			};
-
       };
 
       var params = {
