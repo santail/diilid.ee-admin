@@ -18,7 +18,11 @@ var JobSchema = new Schema({
 	"delay" : String,
 	"priority" : String,
 	"status" : String,
-	"enqueued" : String
+	"enqueued" : String,
+	user: {
+		type: Schema.ObjectId,
+		ref: 'User'
+	}
 });
 
 mongoose.model('Job', JobSchema);

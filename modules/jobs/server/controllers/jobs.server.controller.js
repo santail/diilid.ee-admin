@@ -9,6 +9,23 @@
   errorHandler = require(path.resolve('./modules/core/server/controllers/errors.server.controller')),
   _ = require('lodash');
 
+/**
+ * Create a Job
+ */
+exports.create = function(req, res) {
+	var job = new Job(req.body);
+	job.user = req.user;
+
+	job.save(function(err) {
+		if (err) {
+			return res.status(400).send({
+				message: errorHandler.getErrorMessage(err)
+			});
+		} else {
+			res.jsonp(job);
+		}
+	});
+};
 
 /**
  * Show the current Job

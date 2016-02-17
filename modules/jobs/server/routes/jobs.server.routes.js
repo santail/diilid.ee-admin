@@ -9,7 +9,8 @@ var jobsPolicy = require('../policies/jobs.server.policy'),
 module.exports = function (app) {
   // Jobs collection routes
   app.route('/api/jobs').all(jobsPolicy.isAllowed)
-    .get(jobs.list);
+    .get(jobs.list)
+    .post(jobs.create);
 
   // Single job routes
   app.route('/api/jobs/:jobId').all(jobsPolicy.isAllowed)

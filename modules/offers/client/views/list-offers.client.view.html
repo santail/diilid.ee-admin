@@ -18,8 +18,9 @@
                 <td data-title="'D'" sortable="'discount'" filter="{ 'discount': 'text' }">{{offer.discount}}</td>
                 <td data-title="'Language'" sortable="'language'" filter="{'language': 'select'}" filter-data="languages($column)">{{offer.language}}</td>
                 <td data-title="'Site'" sortable="'site'" filter="{'site': 'select'}" filter-data="sites($column)">{{offer.site}}</td>
+                <td data-title="'Shop'" sortable="'shop'" filter="{'shop': 'select'}">{{offer.site}}</td>
                 <td data-title="''" sortable="'active'" filter="{ 'active': 'select' }" filter-data="trueFalse($column)">{{offer.active}}</td>
-                <td data-title="''" sortable="'modified'">{{offer.modified}}</td>
+                <td data-title="'Updated'" sortable="'modified'" filter="{ 'modified': 'text' }">{{offer.modified}}</td>
                 <td>
                     <div class="table-actions">
                 <td>
@@ -31,8 +32,11 @@
                             <span class="glyphicon glyphicon-edit"></span>
                         </a>
                         <a class="btn btn-danger" title="Remove" ng-really-message="Are you sure ?" ng-really-click="remove(offer)" item="offer">
-                  				<span class="glyphicon glyphicon-remove-circle"></span>
-                  			</a>
+              				<span class="glyphicon glyphicon-remove-circle"></span>
+              			</a>
+                  		<a class="btn btn-danger" title="Refresh" ng-really-message="Are you sure ?" ng-really-click="callReprocessing(offer)" item="offer">
+              				<span class="glyphicon glyphicon-remove-circle"></span>
+              			</a>
                     </div>
                 </td>
             </tr>

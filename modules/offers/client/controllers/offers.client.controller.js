@@ -1,8 +1,8 @@
 'use strict';
 
 // Offers controller
-angular.module('offers').controller('OffersController', ['$scope', '$stateParams', '$location', '$q', 'Authentication', 'Offers', 'TableSettings', 'OffersForm', 'Sites',
-	function ($scope, $stateParams, $location, $q, Authentication, Offers, TableSettings, OffersForm, Sites) {
+angular.module('offers').controller('OffersController', ['$scope', '$stateParams', '$location', '$q', 'Authentication', 'Offers', 'TableSettings', 'OffersForm', 'Jobs', 'Sites',
+	function ($scope, $stateParams, $location, $q, Authentication, Offers, TableSettings, OffersForm, Jobs, Sites) {
 		$scope.authentication = Authentication;
 		$scope.tableParams = TableSettings.getParamsFactory('Offers', Offers);
 		$scope.offer = {};
@@ -75,7 +75,7 @@ angular.module('offers').controller('OffersController', ['$scope', '$stateParams
 					'id': '',
 					'title': ''
 	            },
-	            {
+				{
 					'id': 'ru',
 					'title': 'Russian'
 	            },
@@ -98,7 +98,7 @@ angular.module('offers').controller('OffersController', ['$scope', '$stateParams
 					'id': '',
 					'title': ''
 	            },
-	            {
+				{
 					'id': 'true',
 					'title': 'Active'
 	            },
@@ -106,6 +106,38 @@ angular.module('offers').controller('OffersController', ['$scope', '$stateParams
 					'id': 'false',
 					'title': 'Not active'
                 }];
+		};
+
+		$scope.callReprocessing = function (offer) {
+			offer = Offers.get({
+				offerId: offer._id
+			}, function () {
+				var job = new Jobs({
+					"name": "offer_update_event",
+					"params": {
+						"id": offer.id,
+						"site": offer.site,
+						"language": offer.language,
+						"url": offer.url
+					},
+					"queue": "offers_queue",
+					"attempts": null,
+					"timeout": null,
+					"delay": new Date().toISOString(),
+					"priority": 0,
+					"status": "queued",
+					"enqueued": new Date().toISOString()
+				});
+
+				// Redirect after save
+				job.$save(function (response) {
+					offer.$remove(function () {
+						$scope.tableParams.reload();
+					});
+				}, function (errorResponse) {
+					$scope.error = errorResponse.data.message;
+				});
+			});
 		};
 
 		$scope.sites = function () {

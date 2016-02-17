@@ -115,7 +115,7 @@ describe('Offer CRUD tests', function() {
 					.end(function(offerSaveErr, offerSaveRes) {
 						// Set message assertion
 						(offerSaveRes.body.message).should.match('Please fill Offer name');
-						
+
 						// Handle Offer save error
 						done(offerSaveErr);
 					});
@@ -238,7 +238,7 @@ describe('Offer CRUD tests', function() {
 	});
 
 	it('should not be able to delete Offer instance if not signed in', function(done) {
-		// Set Offer user 
+		// Set Offer user
 		offer.user = user;
 
 		// Create new Offer model instance
