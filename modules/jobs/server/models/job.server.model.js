@@ -15,10 +15,10 @@ var JobSchema = new Schema({
 	"queue" : String,
 	"attempts" : String,
 	"timeout" : String,
-	"delay" : String,
+	"delay" : Date,
 	"priority" : String,
 	"status" : String,
-	"enqueued" : String,
+	"enqueued" : Date,
 	user: {
 		type: Schema.ObjectId,
 		ref: 'User'
