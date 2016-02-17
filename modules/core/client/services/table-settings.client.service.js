@@ -36,10 +36,8 @@
           /* jshint ignore:start */
           var tableParams = new ngTableParams(params, settings);
           tableParams.settings({getData: getData(Entity)});
-
-          /* jshint ignore:end */
-
           entityTableParams[name] = tableParams;
+          /* jshint ignore:end */
         }
 
         return entityTableParams[name];
