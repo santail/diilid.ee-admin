@@ -1,8 +1,8 @@
 'use strict';
 
 // Sites controller
-angular.module('sites').controller('SitesController', ['$scope', '$stateParams', '$location', 'Authentication', 'Sites', 'TableSettings', 'SitesForm',
-	function ($scope, $stateParams, $location, Authentication, Sites, TableSettings, SitesForm) {
+angular.module('sites').controller('SitesController', ['$scope', '$stateParams', '$location', 'Authentication', 'Sites', 'TableSettings', 'SitesForm' 'Jobs',
+	function ($scope, $stateParams, $location, Authentication, Sites, TableSettings, SitesForm, Jobs) {
 		$scope.authentication = Authentication;
 		$scope.tableParams = TableSettings.getParamsFactory('Sites', Sites);
 		$scope.site = {};
@@ -65,6 +65,33 @@ angular.module('sites').controller('SitesController', ['$scope', '$stateParams',
 				siteId: $stateParams.siteId
 			});
 			$scope.setFormFields(false);
+		};
+
+		$scope.callReprocessing = function (site) {
+			site = Sites.get({
+				siteId: site._id
+			}, function () {
+				var job = new Jobs({
+					"name": "harvester_run_event",
+					"params": {
+						"site": site.name
+					},
+					"queue": "offers_queue",
+					"attempts": null,
+					"timeout": null,
+					"delay": new Date().toISOString(),
+					"priority": 0,
+					"status": "queued",
+					"enqueued": new Date().toISOString()
+				});
+
+				// Redirect after save
+				job.$save(function (response) {
+					$scope.tableParams.reload();
+				}, function (errorResponse) {
+					$scope.error = errorResponse.data.message;
+				});
+			});
 		};
 	}
 

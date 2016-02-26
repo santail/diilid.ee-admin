@@ -26,8 +26,11 @@
                             <span class="glyphicon glyphicon-edit"></span>
                         </a>
                         <a class="btn btn-danger" title="Remove" ng-really-message="Are you sure ?" ng-really-click="remove(site)" item="site">
-                  				<span class="glyphicon glyphicon-remove-circle"></span>
-                  			</a>
+              				<span class="glyphicon glyphicon-remove-circle"></span>
+              			</a>
+              			<a class="btn btn-warning" title="Refresh" ng-really-message="Are you sure ?" ng-really-click="callReprocessing(site)" item="site">
+              				<span class="glyphicon glyphicon-refresh"></span>
+              			</a>
                     </div>
                 </td>
             </tr>
