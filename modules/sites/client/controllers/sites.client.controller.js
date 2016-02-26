@@ -74,7 +74,7 @@ angular.module('sites').controller('SitesController', ['$scope', '$stateParams',
 				var job = new Jobs({
 					"name": "harvester_run_event",
 					"params": {
-						"site": site.name
+						"site": site.url
 					},
 					"queue": "offers_queue",
 					"attempts": null,
