@@ -1,7 +1,7 @@
 'use strict';
 
 // Sites controller
-angular.module('sites').controller('SitesController', ['$scope', '$stateParams', '$location', 'Authentication', 'Sites', 'TableSettings', 'SitesForm' 'Jobs',
+angular.module('sites').controller('SitesController', ['$scope', '$stateParams', '$location', 'Authentication', 'Sites', 'TableSettings', 'SitesForm', 'Jobs',
 	function ($scope, $stateParams, $location, Authentication, Sites, TableSettings, SitesForm, Jobs) {
 		$scope.authentication = Authentication;
 		$scope.tableParams = TableSettings.getParamsFactory('Sites', Sites);
