@@ -113,12 +113,13 @@ angular.module('offers').controller('OffersController', ['$scope', '$stateParams
 				offerId: offer._id
 			}, function () {
 				var job = new Jobs({
-					"name": "offer_update_event",
+					"name": "offer_fetch_event",
 					"params": {
 						"id": offer.id,
 						"site": offer.site,
 						"language": offer.language,
-						"url": offer.url
+						"url": offer.url,
+						"refresh": true
 					},
 					"queue": "offers_queue",
 					"attempts": null,
