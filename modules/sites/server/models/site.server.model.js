@@ -30,6 +30,10 @@ var SiteSchema = new Schema({
 		type: Date,
 		default: Date.now
 	},
+	'modified': {
+		'type': Date,
+		'default': Date.now
+	},
 	user: {
 		type: Schema.ObjectId,
 		ref: 'User'

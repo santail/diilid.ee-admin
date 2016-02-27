@@ -35,7 +35,7 @@ var OfferSchema = new Schema({
 	period: String,
 	active: Boolean,
 	language: String,
-	shop: String,
+	vendor: String,
 	user: {
 		type: Schema.ObjectId,
 		ref: 'User'

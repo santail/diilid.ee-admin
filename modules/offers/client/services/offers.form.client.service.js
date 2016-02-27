@@ -43,10 +43,10 @@
   			    }
   				},
   				{
-  					key: 'shop',
+  					key: 'vendor',
   					type: 'input',
   					templateOptions: {
-  			      label: 'Shop:',
+  			      label: 'Vendor:',
   						disabled: disabled
   			    }
   				},
