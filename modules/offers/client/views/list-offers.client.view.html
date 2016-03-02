@@ -10,36 +10,44 @@
     </div>
 
     <div>
-        <table ng-table="tableParams" show-filter="true">
-            <tr ng-repeat="offer in $data">
-                <td data-title="'Title'" sortable="'title'" filter="{ 'title': 'text' }">{{offer.title}}</td>
-                <td data-title="'P'" sortable="'price'" filter="{ 'price': 'text' }">{{offer.price}}</td>
-                <td data-title="'OP'" sortable="'original_price'" filter="{ 'original_price': 'text' }">{{offer.original_price}}</td>
-                <td data-title="'D'" sortable="'discount'" filter="{ 'discount': 'text' }">{{offer.discount}}</td>
-                <td data-title="'Language'" sortable="'language'" filter="{'language': 'select'}" filter-data="languages($column)">{{offer.language}}</td>
-                <td data-title="'Site'" sortable="'site'" filter="{'site': 'select'}" filter-data="sites($column)">{{offer.site}}</td>
-                <td data-title="'Vendor'" sortable="'vendor'" filter="{'vendor': 'select'}">{{offer.vendor}}</td>
-                <td data-title="''" sortable="'active'" filter="{ 'active': 'select' }" filter-data="trueFalse($column)">{{offer.active}}</td>
-                <td data-title="'Updated'" sortable="'modified'" filter="{ 'modified': 'text' }">{{offer.modified}}</td>
-                <td>
-                    <div class="table-actions">
-                <td>
-                   <div class="table-actions">
-                        <a class="btn btn-default" title="View" href="/#!/offers/{{offer._id}}">
-                            <span class="glyphicon glyphicon-eye-open"></span>
-                        </a>
-                        <a class="btn btn-default" title="Edit" href="/#!/offers/{{offer._id}}/edit">
-                            <span class="glyphicon glyphicon-edit"></span>
-                        </a>
-                        <a class="btn btn-danger" title="Remove" ng-really-message="Are you sure ?" ng-really-click="remove(offer)" item="offer">
-              				<span class="glyphicon glyphicon-remove-circle"></span>
-              			</a>
-                  		<a class="btn btn-warning" title="Refresh" ng-really-message="Are you sure ?" ng-really-click="callReprocessing(offer)" item="offer">
-              				<span class="glyphicon glyphicon-refresh"></span>
-              			</a>
-                    </div>
-                </td>
-            </tr>
+        <label class="checkbox-inline" ng-repeat="column in columns">
+            <input type="checkbox" ng-model="column.visible" /> {{column.title}}
+        </label>
+    </div>
+
+    <div>
+
+        <table ng-table="tableParams" template-header="sample_ng_header" show-filter="true" class="table table-condensed table-bordered">
+            <tbody>
+                <tr ng-repeat="offer in $data">
+                    <td ng-repeat="column in columns" ng-show="column.visible" sortable="column.field" filter="column.filter">
+                        {{ offer[column.field] }}
+                    </td>
+                </tr>
+            </tbody>
         </table>
+
+        <script id="sample_ng_header" type="text/ng-template">
+            <tr>
+                <th ng-repeat="column in columns" ng-show="column.visible"
+                    class="text-center sortable" ng-class="{
+                      'sort-asc': tableParams.isSortBy(column.field, 'asc'),
+                      'sort-desc': tableParams.isSortBy(column.field, 'desc')
+                    }"
+                    ng-click="tableParams.sorting(column.field, tableParams.isSortBy(column.field, 'asc') ? 'desc' : 'asc')">
+                    {{column.title}}
+                </th>
+            </tr>
+
+            <tr ng-show="show_filter" class="ng-table-filters">
+                <th ng-repeat="column in columns" data-title-text="column.title" ng-show="column.visible" class="filter">
+                    <div ng-repeat="(name, filter) in column.filter track by $index">
+                        <div ng-if="filter.indexOf('/') !== -1" ng-include="filter"></div>
+                        <div ng-if="filter.indexOf('/') === -1" ng-include="'ng-table/filters/' + filter + '.html'"></div>
+                    </div>
+                </th>
+            </tr>
+        </script>
+
     </div>
 </section>

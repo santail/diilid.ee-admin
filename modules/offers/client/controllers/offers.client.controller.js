@@ -11,6 +11,23 @@ angular.module('offers').controller('OffersController', ['$scope', '$stateParams
 			$scope.formFields = OffersForm.getFormFields(disabled);
 		};
 
+		$scope.checkboxes = {
+	      checked: false,
+	      items: {}
+	    };
+
+		$scope.columns = [
+	      { field: "title", title: "Title", visible: true, filter: { 'title': 'text' } },
+	      { field: "price", title: "Price", visible: true },
+	      { field: "original_price", title: "Original", visible: true },
+	      { field: "discount", title: "Discount", visible: true },
+	      { field: "language", title: "Language", visible: true, filter: { 'language': 'text' } },
+	      { field: "site", title: "Site", visible: true, filter: { 'site': 'text' }, data: "sites($column)" },
+	      { field: "vendor", title: "Vendor", visible: true, filter: { 'vendor': 'text' } },
+	      { field: "active", title: "Active?", visible: true, filter: { 'active': 'text' } },
+	      { field: "modified | date:'yyyy.MM.dd HH:mm:ss'", title: "Modified", visible: true }
+	    ];
+
 		// Create new Offer
 		$scope.create = function () {
 			var offer = new Offers($scope.offer);
@@ -132,9 +149,9 @@ angular.module('offers').controller('OffersController', ['$scope', '$stateParams
 
 				// Redirect after save
 				job.$save(function (response) {
-					offer.$remove(function () {
+					// offer.$remove(function () {
 						$scope.tableParams.reload();
-					});
+					// });
 				}, function (errorResponse) {
 					$scope.error = errorResponse.data.message;
 				});
