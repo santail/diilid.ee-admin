@@ -27,6 +27,22 @@
                     <td ng-repeat="column in columns" ng-show="column.visible" sortable="column.field" filter="column.filter">
                         {{ offer[column.field] }}
                     </td>
+                    <td>
+                        <div class="table-actions">
+                        <a class="btn-sm btn-default" title="View" href="/#!/offers/{{offer._id}}">
+                            <span class="glyphicon glyphicon-eye-open"></span>
+                        </a>
+                        <a class="btn-sm btn-default" title="Edit" href="/#!/offers/{{offer._id}}/edit">
+                            <span class="glyphicon glyphicon-edit"></span>
+                        </a>
+                        <a class="btn-sm btn-danger" title="Remove" ng-really-message="Are you sure ?" ng-really-click="remove(offer)" item="offer">
+              				<span class="glyphicon glyphicon-remove-circle"></span>
+              			</a>
+                  		<a class="btn-sm btn-warning" title="Refresh" ng-really-message="Are you sure ?" ng-really-click="callReprocessing(offer)" item="offer">
+              				<span class="glyphicon glyphicon-refresh"></span>
+              			</a>
+                    </div>
+                </td>
                 </tr>
             </tbody>
         </table>
@@ -44,6 +60,7 @@
                     ng-click="tableParams.sorting(column.field, tableParams.isSortBy(column.field, 'asc') ? 'desc' : 'asc')">
                     {{column.title}}
                 </th>
+                <th>&nbsp;</th>
             </tr>
 
             <tr ng-show="show_filter" class="ng-table-filters">
@@ -54,6 +71,7 @@
                         <div ng-if="filter.indexOf('/') === -1" ng-include="'ng-table/filters/' + filter + '.html'"></div>
                     </div>
                 </th>
+                <th>&nbsp;</th>
             </tr>
         </script>
 
