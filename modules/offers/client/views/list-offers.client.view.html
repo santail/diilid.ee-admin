@@ -17,9 +17,13 @@
 
     <div>
 
-        <table ng-table="tableParams" template-header="sample_ng_header" show-filter="true" class="table table-condensed table-bordered">
+        <table ng-table="tableParams" template-header="table_header" show-filter="true" class="table table-condensed table-bordered">
             <tbody>
                 <tr ng-repeat="offer in $data">
+                    <td>
+                        <input type="checkbox" ng-model="checkboxes.items[offer.id]" />
+                    </td>
+
                     <td ng-repeat="column in columns" ng-show="column.visible" sortable="column.field" filter="column.filter">
                         {{ offer[column.field] }}
                     </td>
@@ -27,8 +31,11 @@
             </tbody>
         </table>
 
-        <script id="sample_ng_header" type="text/ng-template">
+        <script id="table_header" type="text/ng-template">
             <tr>
+                <th>
+                    <input type="checkbox" ng-model="checkboxes.checked" class="select-all" value="" />
+                </th>
                 <th ng-repeat="column in columns" ng-show="column.visible"
                     class="text-center sortable" ng-class="{
                       'sort-asc': tableParams.isSortBy(column.field, 'asc'),
@@ -40,6 +47,7 @@
             </tr>
 
             <tr ng-show="show_filter" class="ng-table-filters">
+                <th>&nbsp;</th>
                 <th ng-repeat="column in columns" data-title-text="column.title" ng-show="column.visible" class="filter">
                     <div ng-repeat="(name, filter) in column.filter track by $index">
                         <div ng-if="filter.indexOf('/') !== -1" ng-include="filter"></div>

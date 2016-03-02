@@ -1,8 +1,8 @@
 'use strict';
 
 // Offers controller
-angular.module('offers').controller('OffersController', ['$scope', '$stateParams', '$location', '$q', 'Authentication', 'Offers', 'TableSettings', 'OffersForm', 'Jobs', 'Sites',
-	function ($scope, $stateParams, $location, $q, Authentication, Offers, TableSettings, OffersForm, Jobs, Sites) {
+angular.module('offers').controller('OffersController', ['$scope', '$stateParams', '$location', '$q', 'Authentication', 'Offers', 'TableSettings', 'OffersForm', 'Jobs', 'Sites', "$element",
+	function ($scope, $stateParams, $location, $q, Authentication, Offers, TableSettings, OffersForm, Jobs, Sites, $element) {
 		$scope.authentication = Authentication;
 		$scope.tableParams = TableSettings.getParamsFactory('Offers', Offers);
 		$scope.offer = {};
@@ -15,6 +15,34 @@ angular.module('offers').controller('OffersController', ['$scope', '$stateParams
 	      checked: false,
 	      items: {}
 	    };
+
+	    // watch for check all checkbox
+	    $scope.$watch(function() {
+	      return $scope.checkboxes.checked;
+	    }, function(value) {
+	      angular.forEach($scope.tableParams.data, function(item) {
+	        $scope.checkboxes.items[item.id] = value;
+	      });
+	    });
+
+	    // watch for data checkboxes
+	    $scope.$watch(function() {
+	      return $scope.checkboxes.items;
+	    }, function(values) {
+	      var checked = 0, unchecked = 0,
+	          total = $scope.tableParams.data.length;
+
+	      angular.forEach($scope.tableParams.data, function(item) {
+	        checked   +=  ($scope.checkboxes.items[item.id]) || 0;
+	        unchecked += (!$scope.checkboxes.items[item.id]) || 0;
+	      });
+
+	      if ((unchecked == 0) || (checked == 0)) {
+	        $scope.checkboxes.checked = (checked == total);
+	      }
+
+	      angular.element($element[0].getElementsByClassName("select-all")).prop("indeterminate", (checked != 0 && unchecked != 0));
+	    }, true);
 
 		$scope.columns = [
 	      { field: "title", title: "Title", visible: true, filter: { 'title': 'text' } },
