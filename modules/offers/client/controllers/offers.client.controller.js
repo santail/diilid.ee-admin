@@ -37,15 +37,15 @@ angular.module('offers').controller('OffersController', ['$scope', '$stateParams
 	        unchecked += (!$scope.checkboxes.items[item.id]) || 0;
 	      });
 
-	      if ((unchecked == 0) || (checked == 0)) {
-	        $scope.checkboxes.checked = (checked == total);
+	      if ((unchecked === 0) || (checked === 0)) {
+	        $scope.checkboxes.checked = (checked === total);
 	      }
 
-	      angular.element($element[0].getElementsByClassName("select-all")).prop("indeterminate", (checked != 0 && unchecked != 0));
+	      angular.element($element[0].getElementsByClassName("select-all")).prop("indeterminate", (checked !== 0 && unchecked !== 0));
 	    }, true);
 
 		$scope.columns = [
-	      { field: "title", title: "Title", visible: true, filter: { 'title': 'text' } },
+	      { field: "title", title: "Title", visible: true, filter: { 'title': 'text' }, url: true},
 	      { field: "price", title: "Price", visible: true },
 	      { field: "original_price", title: "Original", visible: true },
 	      { field: "discount", title: "Discount", visible: true },

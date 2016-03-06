@@ -25,7 +25,10 @@
                     </td>
 
                     <td ng-repeat="column in columns" ng-show="column.visible" sortable="column.field" filter="column.filter">
-                        {{ offer[column.field] }}
+                        <a title="View" href="/#!/offers/{{offer._id}}" ng-if="column.url">
+                            {{ offer[column.field] }}
+                        </a>
+                        <span ng-if="!column.url">{{ offer[column.field] }}</span>
                     </td>
                     <td>
                         <div class="table-actions">
