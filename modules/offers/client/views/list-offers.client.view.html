@@ -25,7 +25,7 @@
                     </td>
 
                     <td ng-repeat="column in columns" ng-show="column.visible" sortable="column.field" filter="column.filter">
-                        <a title="View" href="{{offer.original_url ? offer.original_url : offer.url}}" ng-if="column.url">
+                        <a title="View" ng-href="{{offer.original_url ? offer.original_url : offer.url}}" ng-if="column.url">
                             {{ offer[column.field] }}
                         </a>
                         <span ng-if="!column.url">{{ offer[column.field] }}</span>
