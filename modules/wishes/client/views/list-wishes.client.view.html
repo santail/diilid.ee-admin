@@ -7,6 +7,9 @@
       <a type="button" class="btn btn-success" href="/#!/wishes/create">
         <i class="glyphicon glyphicon-open"></i> New Wish
       </a>
+      <a type="button" class="btn btn-success" href="/#!/wishes/create">
+        <i class="glyphicon glyphicon-repeat"></i> Run
+      </a>
     </div>
 
     <div>
@@ -26,9 +29,12 @@
                         <a class="btn btn-default" title="Edit" href="/#!/wishes/{{wish._id}}/edit">
                             <span class="glyphicon glyphicon-edit"></span>
                         </a>
+                        <a class="btn-sm btn-warning" title="Process" ng-really-message="Are you sure ?" ng-really-click="callWishProcuring(wish)" item="wish">
+              				<span class="glyphicon glyphicon-play"></span>
+              			</a>
                         <a class="btn btn-danger" title="Remove" ng-really-message="Are you sure ?" ng-really-click="remove(wish)" item="wish">
-                  				<span class="glyphicon glyphicon-remove-circle"></span>
-                  			</a>
+              				<span class="glyphicon glyphicon-remove-circle"></span>
+              			</a>
                     </div>
                 </td>
             </tr>
