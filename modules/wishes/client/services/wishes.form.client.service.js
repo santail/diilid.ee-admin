@@ -35,12 +35,18 @@
   			      label: 'Phone:',
   						disabled: disabled
   			    }
+  				},
+  				{
+  					key: 'language',
+  					type: 'input',
+  					templateOptions: {
+  			      label: 'Language:',
+  						disabled: disabled
+  			    }
   				}
-
   			];
 
         return fields;
-
       };
 
       var service = {

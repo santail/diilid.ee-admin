@@ -12,19 +12,14 @@ var mongoose = require('mongoose'),
 var WishSchema = new Schema({
 	contains: {
 		type: String,
-		default: '',
-		required: 'Please fill wish body',
 		trim: true
 	},
 	email: {
 		type: String,
-		default: '',
-		required: 'Please fill email',
 		trim: true
 	},
 	phone: {
 		type: String,
-		default: '',
 		trim: true
 	},
 	language: {
@@ -35,6 +30,10 @@ var WishSchema = new Schema({
 	created: {
 		type: Date,
 		default: Date.now
+	},
+	active: {
+	  type: Boolean,
+	  default: true
 	},
 	user: {
 		type: Schema.ObjectId,

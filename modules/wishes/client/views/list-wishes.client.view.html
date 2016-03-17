@@ -13,6 +13,7 @@
         <table ng-table="tableParams" show-filter="true">
             <tr ng-repeat="wish in $data">
                 <td data-title="'Contains'" sortable="'contains'" filter="{ 'contains': 'text' }">{{wish.contains}}</td>
+                <td data-title="'Language'" sortable="'language'" filter="{ 'language': 'text' }">{{wish.language}}</td>
                 <td data-title="'email'" sortable="'email'" filter="{ 'email': 'text' }">{{wish.email}}</td>
                 <td data-title="'Phone'" sortable="'phone'" filter="{ 'phone': 'text' }">{{wish.phone}}</td>
                 <td>
