@@ -20,19 +20,17 @@
                 <td data-title="'email'" sortable="'email'" filter="{ 'email': 'text' }">{{wish.email}}</td>
                 <td data-title="'Phone'" sortable="'phone'" filter="{ 'phone': 'text' }">{{wish.phone}}</td>
                 <td>
-                    <div class="table-actions">
-                <td>
                    <div class="table-actions">
-                        <a class="btn btn-default" title="View" href="/#!/wishes/{{wish._id}}">
+                        <a class="btn-sm btn-default" title="View" href="/#!/wishes/{{wish._id}}">
                             <span class="glyphicon glyphicon-eye-open"></span>
                         </a>
-                        <a class="btn btn-default" title="Edit" href="/#!/wishes/{{wish._id}}/edit">
+                        <a class="btn-sm btn-default" title="Edit" href="/#!/wishes/{{wish._id}}/edit">
                             <span class="glyphicon glyphicon-edit"></span>
                         </a>
                         <a class="btn-sm btn-warning" title="Process" ng-really-message="Are you sure ?" ng-really-click="callWishProcuring(wish)" item="wish">
               				<span class="glyphicon glyphicon-play"></span>
               			</a>
-                        <a class="btn btn-danger" title="Remove" ng-really-message="Are you sure ?" ng-really-click="remove(wish)" item="wish">
+                        <a class="btn-sm btn-danger" title="Remove" ng-really-message="Are you sure ?" ng-really-click="remove(wish)" item="wish">
               				<span class="glyphicon glyphicon-remove-circle"></span>
               			</a>
                     </div>
