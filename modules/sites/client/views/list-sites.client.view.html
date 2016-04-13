@@ -21,6 +21,7 @@
                 <td data-title="'Name'" sortable="'name'" filter="{ 'name': 'text' }">{{site.name}}</td>
                 <td data-title="'Url'" sortable="'url'" filter="{ 'url': 'text' }">{{site.url}}</td>
                 <td data-title="'Active'" sortable="'is_active'" filter="{ 'is_active': 'text' }">{{site.is_active}}</td>
+                <td data-title="'Last harvesting'" sortable="'last_run'">{{site.last_run | date:'yyyy.MM.dd HH:mm:ss'}}</td>
                 <td class="table-actions">
                     <a class="btn-sm btn-default" title="Edit" href="/#!/sites/{{site._id}}/edit">
                         <span class="glyphicon glyphicon-edit"></span>
