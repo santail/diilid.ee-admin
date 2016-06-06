@@ -70,6 +70,13 @@ angular.module('offers').controller('OffersController', ['$scope', '$stateParams
 
 		// Remove existing Offer
 		$scope.remove = function (offer) {
+			if (!offer) {
+				angular.forEach($scope.checkboxes.items, function (offer) {
+					offer.$remove(function () {
+
+					});
+				});
+			}
 
 			if (offer) {
 				offer = Offers.get({
@@ -86,7 +93,6 @@ angular.module('offers').controller('OffersController', ['$scope', '$stateParams
 					$location.path('offers');
 				});
 			}
-
 		};
 
 		// Update existing Offer

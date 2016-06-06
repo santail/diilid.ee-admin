@@ -4,9 +4,15 @@
     </div>
 
     <div class="pull-right">
-      <a type="button" class="btn btn-success" href="/#!/offers/create">
-        <i class="glyphicon glyphicon-open"></i> New Offer
-      </a>
+        <a type="button" class="btn-sm btn-success" href="/#!/offers/create">
+            <i class="glyphicon glyphicon-open"></i> New Offer
+        </a>
+        <a type="button" class="btn-sm btn-danger" ng-really-message="Are you sure ?" ng-really-click="remove()">
+            <i class="glyphicon glyphicon-remove-circle"></i> Remove
+        </a>
+        <a type="button" class="btn-sm btn-warning" ng-really-message="Are you sure ?" ng-really-click="callReprocessing()">
+            <i class="glyphicon glyphicon-refresh"></i> Refresh
+        </a>
     </div>
 
     <div>
@@ -32,35 +38,52 @@
                     </td>
                     <td>
                         <div class="table-actions">
-                        <a class="btn-sm btn-default" title="View" href="/#!/offers/{{offer._id}}">
-                            <span class="glyphicon glyphicon-eye-open"></span>
-                        </a>
-                        <a class="btn-sm btn-default" title="Edit" href="/#!/offers/{{offer._id}}/edit">
-                            <span class="glyphicon glyphicon-edit"></span>
-                        </a>
-                        <a class="btn-sm btn-danger" title="Remove" ng-really-message="Are you sure ?" ng-really-click="remove(offer)" item="offer">
-              				<span class="glyphicon glyphicon-remove-circle"></span>
-              			</a>
-                  		<a class="btn-sm btn-warning" title="Refresh" ng-really-message="Are you sure ?" ng-really-click="callReprocessing(offer)" item="offer">
-              				<span class="glyphicon glyphicon-refresh"></span>
-              			</a>
-                    </div>
-                </td>
+                            <a class="btn-sm btn-default" title="View" href="/#!/offers/{{offer._id}}">
+                                <span class="glyphicon glyphicon-eye-open"></span>
+                            </a>
+                            <a class="btn-sm btn-default" title="Edit" href="/#!/offers/{{offer._id}}/edit">
+                                <span class="glyphicon glyphicon-edit"></span>
+                            </a>
+                            <a class="btn-sm btn-danger" title="Remove" ng-really-message="Are you sure ?" ng-really-click="remove(offer)" item="offer">
+                                <span class="glyphicon glyphicon-remove-circle"></span>
+                            </a>
+                            <a class="btn-sm btn-warning" title="Refresh" ng-really-message="Are you sure ?" ng-really-click="callReprocessing(offer)" item="offer">
+                                <span class="glyphicon glyphicon-refresh"></span>
+                            </a>
+                        </div>
+                    </td>
                 </tr>
             </tbody>
         </table>
+
+        <script type="text/ng-template" id="ng-table/filters/boolean.html">
+            <label>Active:
+                <input type="checkbox" ng-model="params.filter()[name]" value="1">
+            </label>
+            <label>Off:
+                <input type="checkbox" ng-model="params.filter()[name]" value="0">
+            </label>
+        </script>
+
+        <script type="text/ng-template" id="ng-table/filters/select-plus.html">
+            <span ng-repeat="data in column.data">
+            {{data}}
+            </span>
+
+            <select ng-options="data.id as data.title for data in column.data" ng-disabled="$filterRow.disabled" ng-model="params.filter()[name]" class="filter filter-select form-control" name="{{name}}">
+                <option style="display:none" value=""></option>
+            </select>
+        </script>
 
         <script id="table_header" type="text/ng-template">
             <tr>
                 <th>
                     <input type="checkbox" ng-model="checkboxes.checked" class="select-all" value="" />
                 </th>
-                <th ng-repeat="column in columns" ng-show="column.visible"
-                    class="text-center sortable" ng-class="{
+                <th ng-repeat="column in columns" ng-show="column.visible" class="text-center sortable" ng-class="{
                       'sort-asc': tableParams.isSortBy(column.field, 'asc'),
                       'sort-desc': tableParams.isSortBy(column.field, 'desc')
-                    }"
-                    ng-click="tableParams.sorting(column.field, tableParams.isSortBy(column.field, 'asc') ? 'desc' : 'asc')">
+                    }" ng-click="tableParams.sorting(column.field, tableParams.isSortBy(column.field, 'asc') ? 'desc' : 'asc')">
                     {{column.title}}
                 </th>
                 <th>&nbsp;</th>

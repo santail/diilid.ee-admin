@@ -51,6 +51,14 @@
   			    }
   				},
   				{
+  					key: 'language',
+  					type: 'input',
+  					templateOptions: {
+  			      label: 'Language:',
+  						disabled: disabled
+  			    }
+  				},
+  				{
   					key: 'url',
   					type: 'input',
   					templateOptions: {
