@@ -127,18 +127,28 @@ angular.module('offers').controller('OffersController', ['$scope', '$stateParams
 		// Remove existing Offer
 		$scope.remove = function (offer) {
 			if (!offer) {
-				angular.forEach($scope.checkboxes.items, function(value, key) {
+				var getEntityFunctions = [];
+				var deleteEntityFunctions = [];
+
+				angular.forEach($scope.checkboxes.items, function (value, key) {
 					if (value) {
-						Offers.get({
+						var entityPromise = Offers.get({
 							offerId: key
-						}, function (entity) {
-							entity.$remove(function () {
-								console.log('removing', key);
-							});
+						});
+
+						getEntityFunctions.push(entityPromise.$promise);
+
+						entityPromise.$promise.then(function () {
+							deleteEntityFunctions.push(entityPromise.$remove().$promise);
 						});
 					}
 				});
 
+				$q.all(getEntityFunctions).then(function (foundEntities) {
+					$q.all(deleteEntityFunctions).then(function (deletedEntities) {
+						$scope.tableParams.reload();
+					});
+				});
 			}
 			else if (offer) {
 				console.log('removing offer', offer._id);
@@ -276,7 +286,5 @@ angular.module('offers').controller('OffersController', ['$scope', '$stateParams
 
 			return def;
 		};
-
-				}
-
-				]);
+	}
+]);
