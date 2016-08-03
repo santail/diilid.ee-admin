@@ -146,6 +146,7 @@ angular.module('offers').controller('OffersController', ['$scope', '$stateParams
 
 				$q.all(getEntityFunctions).then(function (foundEntities) {
 					$q.all(deleteEntityFunctions).then(function (deletedEntities) {
+						$scope.checkboxes.items = {};
 						$scope.tableParams.reload();
 					});
 				});
@@ -231,36 +232,81 @@ angular.module('offers').controller('OffersController', ['$scope', '$stateParams
 		};
 
 		$scope.callReprocessing = function (offer) {
-			offer = Offers.get({
-				offerId: offer._id
-			}, function () {
-				var job = new Jobs({
-					"name": "offer_fetch_event",
-					"params": {
-						"id": offer.id,
-						"site": offer.site,
-						"language": offer.language,
-						"url": offer.url,
-						"refresh": true
-					},
-					"queue": "offers_queue",
-					"attempts": null,
-					"timeout": null,
-					"delay": new Date().toISOString(),
-					"priority": 0,
-					"status": "queued",
-					"enqueued": new Date().toISOString()
+			if (!offer) {
+				var getEntityFunctions = [];
+				var updateEntityFunctions = [];
+
+				angular.forEach($scope.checkboxes.items, function (value, key) {
+					if (value) {
+						var entityPromise = Offers.get({
+							offerId: key
+						});
+
+						getEntityFunctions.push(entityPromise.$promise);
+
+						entityPromise.$promise.then(function (entity) {
+							var job = new Jobs({
+								"name": "offer_fetch_event",
+								"params": {
+									"id": entity.id,
+									"site": entity.site,
+									"language": entity.language,
+									"url": entity.url,
+									"refresh": true
+								},
+								"queue": "offers_queue",
+								"attempts": null,
+								"timeout": null,
+								"delay": new Date().toISOString(),
+								"priority": 0,
+								"status": "queued",
+								"enqueued": new Date().toISOString()
+							});
+
+							updateEntityFunctions.push(job.$save().$promise);
+						});
+					}
 				});
 
-				// Redirect after save
-				job.$save(function (response) {
-					// offer.$remove(function () {
-					$scope.tableParams.reload();
-					// });
-				}, function (errorResponse) {
-					$scope.error = errorResponse.data.message;
+				$q.all(getEntityFunctions).then(function (foundEntities) {
+					$q.all(updateEntityFunctions).then(function (updatedEntities) {
+						$scope.checkboxes.items = {};
+						$scope.tableParams.reload();
+					});
 				});
-			});
+			}
+			else {
+				offer = Offers.get({
+					offerId: offer._id
+				}, function () {
+					var job = new Jobs({
+						"name": "offer_fetch_event",
+						"params": {
+							"id": offer.id,
+							"site": offer.site,
+							"language": offer.language,
+							"url": offer.url,
+							"refresh": true
+						},
+						"queue": "offers_queue",
+						"attempts": null,
+						"timeout": null,
+						"delay": new Date().toISOString(),
+						"priority": 0,
+						"status": "queued",
+						"enqueued": new Date().toISOString()
+					});
+
+					// Redirect after save
+					job.$save(function (response) {
+						// offer.$remove(function () {
+						$scope.tableParams.reload();
+						// });
+					}, function (errorResponse) {
+						$scope.error = errorResponse.data.message;
+					});
+				});
+			}
 		};
 
 		$scope.sites = function () {
