@@ -1,8 +1,8 @@
 'use strict';
 
 // Offers controller
-angular.module('offers').controller('OffersController', ['$scope', '$stateParams', '$location', '$q', 'Authentication', 'Offers', 'TableSettings', 'OffersForm', 'Jobs', 'Sites', "$element",
-	function ($scope, $stateParams, $location, $q, Authentication, Offers, TableSettings, OffersForm, Jobs, Sites, $element) {
+angular.module('offers').controller('OffersController', ['$scope', '$stateParams', '$location', '$q', 'Authentication', 'Offers', 'TableSettings', 'OffersForm', 'Jobs', 'Sites', "$element", "ngTableEventsChannel",
+	function ($scope, $stateParams, $location, $q, Authentication, Offers, TableSettings, OffersForm, Jobs, Sites, $element, ngTableEventsChannel) {
 		$scope.authentication = Authentication;
 		$scope.tableParams = TableSettings.getParamsFactory('Offers', Offers);
 		$scope.offer = {};
@@ -12,48 +12,104 @@ angular.module('offers').controller('OffersController', ['$scope', '$stateParams
 		};
 
 		$scope.checkboxes = {
-	      checked: false,
-	      items: {}
-	    };
+			checked: false,
+			items: {}
+		};
 
-	    // watch for check all checkbox
-	    $scope.$watch(function() {
-	      return $scope.checkboxes.checked;
-	    }, function(value) {
-	      angular.forEach($scope.tableParams.data, function(item) {
-	        $scope.checkboxes.items[item.id] = value;
-	      });
-	    });
+		ngTableEventsChannel.onAfterReloadData(function (result) {
+			// watch for check all checkbox
+			$scope.$watch(function () {
+				return $scope.checkboxes.checked;
+			}, function (value) {
+				angular.forEach(result.data, function (item) {
+					$scope.checkboxes.items[item._id] = value;
+				});
+			});
 
-	    // watch for data checkboxes
-	    $scope.$watch(function() {
-	      return $scope.checkboxes.items;
-	    }, function(values) {
-	      var checked = 0, unchecked = 0,
-	          total = $scope.tableParams.data.length;
+			// watch for data checkboxes
+			$scope.$watch(function () {
+				return $scope.checkboxes.items;
+			}, function (values) {
+				var checked = 0,
+					unchecked = 0,
+					total = result.data.length;
 
-	      angular.forEach($scope.tableParams.data, function(item) {
-	        checked   +=  ($scope.checkboxes.items[item.id]) || 0;
-	        unchecked += (!$scope.checkboxes.items[item.id]) || 0;
-	      });
+				angular.forEach(result.data, function (item) {
+					checked += ($scope.checkboxes.items[item._id]) || 0;
+					unchecked += (!$scope.checkboxes.items[item._id]) || 0;
+				});
 
-	      if ((unchecked === 0) || (checked === 0)) {
-	        $scope.checkboxes.checked = (checked === total);
-	      }
+				if (unchecked === 0 || checked === 0) {
+					$scope.checkboxes.checked = (checked !== 0 && checked === total);
+				}
 
-	      angular.element($element[0].getElementsByClassName("select-all")).prop("indeterminate", (checked !== 0 && unchecked !== 0));
-	    }, true);
+				angular.element($element[0].getElementsByClassName("select-all")).prop("indeterminate", (checked !== 0 && unchecked !== 0));
+			}, true);
+		}, $scope, $scope.tableParams);
 
 		$scope.columns = [
-	      { field: "title", title: "Title", visible: true, filter: { 'title': 'text' }, url: true},
-	      { field: "price", title: "Price", visible: true },
-	      { field: "original_price", title: "Original", visible: true },
-	      { field: "discount", title: "Discount", visible: true },
-	      { field: "language", title: "Language", visible: true, filter: { 'language': 'text' } },
-	      { field: "site", title: "Site", visible: true, filter: { 'site': 'text' }, data: "sites($column)" },
-	      { field: "vendor", title: "Vendor", visible: true, filter: { 'vendor': 'text' } },
-	      { field: "active", title: "Active?", visible: true, filter: { 'active': 'text' } },
-	      { field: "modified | date:'yyyy.MM.dd HH:mm:ss'", title: "Modified", visible: true }
+			{
+				field: "title",
+				title: "Title",
+				visible: true,
+				filter: {
+					'title': 'text'
+				},
+				url: true
+			},
+			{
+				field: "price",
+				title: "Price",
+				visible: true
+			},
+			{
+				field: "original_price",
+				title: "Original",
+				visible: true
+			},
+			{
+				field: "discount",
+				title: "Discount",
+				visible: true
+			},
+			{
+				field: "language",
+				title: "Language",
+				visible: true,
+				filter: {
+					'language': 'text'
+				}
+			},
+			{
+				field: "site",
+				title: "Site",
+				visible: true,
+				filter: {
+					'site': 'text'
+				},
+				data: "sites($column)"
+			},
+			{
+				field: "vendor",
+				title: "Vendor",
+				visible: true,
+				filter: {
+					'vendor': 'text'
+				}
+			},
+			{
+				field: "active",
+				title: "Active?",
+				visible: true,
+				filter: {
+					'active': 'text'
+				}
+			},
+			{
+				field: "modified | date:'yyyy.MM.dd HH:mm:ss'",
+				title: "Modified",
+				visible: true
+			}
 	    ];
 
 		// Create new Offer
@@ -71,14 +127,22 @@ angular.module('offers').controller('OffersController', ['$scope', '$stateParams
 		// Remove existing Offer
 		$scope.remove = function (offer) {
 			if (!offer) {
-				angular.forEach($scope.checkboxes.items, function (offer) {
-					offer.$remove(function () {
-
-					});
+				angular.forEach($scope.checkboxes.items, function(value, key) {
+					if (value) {
+						Offers.get({
+							offerId: key
+						}, function (entity) {
+							entity.$remove(function () {
+								console.log('removing', key);
+							});
+						});
+					}
 				});
-			}
 
-			if (offer) {
+			}
+			else if (offer) {
+				console.log('removing offer', offer._id);
+
 				offer = Offers.get({
 					offerId: offer._id
 				}, function () {
@@ -86,9 +150,10 @@ angular.module('offers').controller('OffersController', ['$scope', '$stateParams
 						$scope.tableParams.reload();
 					});
 				});
-
 			}
 			else {
+				console.log('removing from offer page');
+
 				$scope.offer.$remove(function () {
 					$location.path('offers');
 				});
@@ -184,7 +249,7 @@ angular.module('offers').controller('OffersController', ['$scope', '$stateParams
 				// Redirect after save
 				job.$save(function (response) {
 					// offer.$remove(function () {
-						$scope.tableParams.reload();
+					$scope.tableParams.reload();
 					// });
 				}, function (errorResponse) {
 					$scope.error = errorResponse.data.message;
@@ -212,6 +277,6 @@ angular.module('offers').controller('OffersController', ['$scope', '$stateParams
 			return def;
 		};
 
-	}
+				}
 
-]);
+				]);

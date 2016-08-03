@@ -27,7 +27,7 @@
             <tbody>
                 <tr ng-repeat="offer in $data">
                     <td>
-                        <input type="checkbox" ng-model="checkboxes.items[offer.id]" />
+                        <input type="checkbox" ng-model="checkboxes.items[offer._id]" />
                     </td>
 
                     <td ng-repeat="column in columns" ng-show="column.visible" sortable="column.field" filter="column.filter">
