@@ -151,8 +151,6 @@ angular.module('offers').controller('OffersController', ['$scope', '$stateParams
 				});
 			}
 			else if (offer) {
-				console.log('removing offer', offer._id);
-
 				offer = Offers.get({
 					offerId: offer._id
 				}, function () {
@@ -162,8 +160,6 @@ angular.module('offers').controller('OffersController', ['$scope', '$stateParams
 				});
 			}
 			else {
-				console.log('removing from offer page');
-
 				$scope.offer.$remove(function () {
 					$location.path('offers');
 				});
