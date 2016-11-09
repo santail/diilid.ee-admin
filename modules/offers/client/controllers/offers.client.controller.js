@@ -309,24 +309,14 @@ angular.module('offers').controller('OffersController', ['$scope', '$stateParams
 			}
 		};
 
-		$scope.sites = function () {
-			var def = $q.defer(),
-				sites = [];
+		$scope.sites = [];
+		Sites.all(function (res) {
+		  angular.forEach(result, function (item) {
+		    $scope.sites.push({
+		      'id': item.url,
+		      'title': item.name
+		    });
+		  });
+		});
 
-			Sites.all(function (res) {
-				res.$promise.then(function (result) {
-					angular.forEach(result, function (item) {
-						sites.push({
-							'id': item.url,
-							'title': item.name
-						});
-					});
-
-					def.resolve(sites);
-				});
-			});
-
-			return def;
-		};
-	}
 ]);
