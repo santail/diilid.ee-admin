@@ -42,6 +42,9 @@ exports.invokeRolesPolicies = function () {
       resources: '/api/sites',
       permissions: ['get']
     }, {
+      resources: '/api/sites/all',
+      permissions: ['get']
+    }, {
       resources: '/api/sites/:siteId',
       permissions: ['get']
     }]
