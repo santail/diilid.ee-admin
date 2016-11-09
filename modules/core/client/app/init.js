@@ -48,6 +48,25 @@ angular.module(ApplicationConfiguration.applicationModuleName).run(function ($ro
   });
 });
 
+angular.module(ApplicationConfiguration.applicationModuleName).config(setConfigPhaseSettings);
+setConfigPhaseSettings.$inject = ["ngTableFilterConfigProvider"];
+
+  function setConfigPhaseSettings(ngTableFilterConfigProvider) {
+    var filterAliasUrls = {
+      "sites": "modules/core/client/ng-table/filters/sites.html"
+    };
+    ngTableFilterConfigProvider.setConfig({
+      aliasUrls: filterAliasUrls
+    });
+
+    // optionally set a default url to resolve alias names that have not been explicitly registered
+    // if you don't set one, then 'ng-table/filters/' will be used by default
+    ngTableFilterConfigProvider.setConfig({
+      defaultBaseUrl: "modules/core/client/ng-table/filters/"
+    });
+
+  }
+
 //Then define the init function for starting up the application
 angular.element(document).ready(function () {
   //Fixing facebook bug with redirect

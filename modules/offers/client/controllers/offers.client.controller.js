@@ -85,8 +85,9 @@ angular.module('offers').controller('OffersController', ['$scope', '$stateParams
 				title: "Site",
 				visible: true,
 				filter: {
-					'site': 'text'
+					'site': 'sites'
 				},
+				filterData: $scope.sites,
 				data: "sites($column)"
 			},
 			{
