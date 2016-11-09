@@ -310,7 +310,7 @@ angular.module('offers').controller('OffersController', ['$scope', '$stateParams
 		};
 
 		$scope.sites = [];
-		Sites.all(function (res) {
+		Sites.get(function (res) {
 		  angular.forEach(result, function (item) {
 		    $scope.sites.push({
 		      'id': item.url,
