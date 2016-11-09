@@ -32,6 +32,9 @@ exports.invokeRolesPolicies = function () {
     }, {
       resources: '/api/sites/:siteId',
       permissions: ['get']
+    }, {
+      resources: '/api/sites/all',
+      permissions: ['get']
     }]
   }, {
     roles: ['guest'],
