@@ -48,7 +48,10 @@ angular.module(ApplicationConfiguration.applicationModuleName).run(function ($ro
   });
 });
 
-angular.module(ApplicationConfiguration.applicationModuleName).config(['ngTableFilterConfigProvider', function (ngTableFilterConfigProvider) {
+angular.module(ApplicationConfiguration.applicationModuleName).config(setConfigPhaseSettings);
+setConfigPhaseSettings.$inject = ["ngTableFilterConfigProvider"];
+
+  function setConfigPhaseSettings(ngTableFilterConfigProvider) {
     var filterAliasUrls = {
       "sites": "modules/core/client/ng-table/filters/sites.html"
     };
@@ -63,7 +66,6 @@ angular.module(ApplicationConfiguration.applicationModuleName).config(['ngTableF
     });
 
   }
-]);
 
 //Then define the init function for starting up the application
 angular.element(document).ready(function () {
