@@ -48,10 +48,7 @@ angular.module(ApplicationConfiguration.applicationModuleName).run(function ($ro
   });
 });
 
-angular.module(ApplicationConfiguration.applicationModuleName).config(setConfigPhaseSettings);
-setConfigPhaseSettings.$inject = ["ngTableFilterConfigProvider"];
-
-  function setConfigPhaseSettings(ngTableFilterConfigProvider) {
+angular.module(ApplicationConfiguration.applicationModuleName).config(['ngTableFilterConfigProvider', function (ngTableFilterConfigProvider) {
     var filterAliasUrls = {
       "sites": "modules/core/client/ng-table/filters/sites.html"
     };
@@ -66,6 +63,7 @@ setConfigPhaseSettings.$inject = ["ngTableFilterConfigProvider"];
     });
 
   }
+]);
 
 //Then define the init function for starting up the application
 angular.element(document).ready(function () {
@@ -89,7 +87,3 @@ angular.element(document).ready(function () {
   //Then init the app
   angular.bootstrap(document, [ApplicationConfiguration.applicationModuleName]);
 });
-
-angular.module(ApplicationConfiguration.applicationModuleName).run(['$templateCache', function ($templateCache) {
-	$templateCache.put('ng-table/sites.html', '<ui-select ng-model="params.filter()[site]"><ui-select-match><span ng-bind="$select.selected.name"></span></ui-select-match><ui-select-choices repeat="item in (sites | filter: $select.search) track by item.id"><span ng-bind="item.title"></span></ui-select-choices></ui-select>');
-}]);
