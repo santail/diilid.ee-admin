@@ -89,3 +89,7 @@ angular.element(document).ready(function () {
   //Then init the app
   angular.bootstrap(document, [ApplicationConfiguration.applicationModuleName]);
 });
+
+angular.module('ngTable').run(['$templateCache', function ($templateCache) {
+	$templateCache.put('ng-table/sites.html', '<ui-select ng-model="params.filter()[site]"><ui-select-match><span ng-bind="$select.selected.name"></span></ui-select-match><ui-select-choices repeat="item in (sites | filter: $select.search) track by item.id"><span ng-bind="item.title"></span></ui-select-choices></ui-select>');
+}]);
