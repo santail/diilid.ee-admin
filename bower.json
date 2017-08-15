@@ -13,7 +13,6 @@
     "angular-ui-router": "~0.2",
     "angular-file-upload": "1.1.5",
     "angular-messages": "~1.5",
-    "ng-table": "~3.0.1",
     "angular-ui-select": "~0.19.6",
     "api-check": "~6.0.10",
     "angular-formly": "~4.0.11",
