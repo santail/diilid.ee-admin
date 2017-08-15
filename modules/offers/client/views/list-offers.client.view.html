@@ -21,16 +21,14 @@
         </label>
     </div>
 
-    <div>
+    <div loading-container="tableParams.settings().$loading">
 
         <table ng-table="tableParams" template-header="table_header" show-filter="true" class="table table-condensed table-bordered">
             <tbody>
                 <tr ng-repeat="offer in $data">
-                    <td>
-                        <input type="checkbox" ng-model="checkboxes.items[offer._id]" />
-                    </td>
+                    <td><input type="checkbox" ng-model="checkboxes.items[offer._id]" /></td>
 
-                    <td ng-repeat="column in columns" ng-show="column.visible" sortable="column.field" filter="column.filter">
+                    <td ng-repeat="column in columns" ng-show="column.visible" sortable="column.field" filter="{'name': 'name'}" filter-data="names($column)">
                         <a title="View" ng-href="{{offer.original_url ? offer.original_url : offer.url}}" ng-if="column.url">
                             {{ offer[column.field] }}
                         </a>
@@ -55,6 +53,20 @@
                 </tr>
             </tbody>
         </table>
+
+	<pre>{{tableParams.filter()['name']}}</pre>
+
+<script type="text/ng-template" id="ng-table/filters/name.html">
+  <select ng-options="name.id as name.title for name in nameOptions" 
+          ng-model="params.filter()['name']" 
+          ng-change="ages(column, params.filter()['name'])">
+  </select>
+</script>
+
+<script type="text/ng-template" id="ng-table/filters/age.html">
+  <select ng-options="age.id as age.title for age in ageOptions" 
+          ng-model="params.filter()['age']"></select>
+</script>
 
         <script type="text/ng-template" id="ng-table/filters/boolean.html">
             <label>Active:

@@ -5,25 +5,25 @@
         .module('core')
         .factory('TableSettings', factory);
 
-    factory.$inject = ['ngTableParams'];
+    factory.$inject = ['NgTableParams'];
 
-    function factory(ngTableParams) {
+    function factory(NgTableParams) {
 
       var getData = function(Entity) {
-        return function($defer, params) {
-  				Entity.get(params.url(), function(response) {
-  					params.total(response.total);
-  					$defer.resolve(response.results);
-  				});
-  			};
+        return function (params) {
+          return Entity.get(params.url()).$promise.then(function(data) {
+            params.total(data.total);
+            return data.results;
+          });
+        };
       };
 
-      var params = {
+      var initialParams = {
         page: 1,
         count: 50
       };
 
-      var settings = {
+      var initialSettings = {
         total: 0,
         counts: [10, 25, 50, 100],
         filterDelay: 300,
@@ -34,7 +34,7 @@
       var getParamsFactory = function (name, Entity) {
         if (!entityTableParams[name]) {
           /* jshint ignore:start */
-          var tableParams = new ngTableParams(params, settings);
+          var tableParams = new NgTableParams(initialParams, initialSettings);
           tableParams.settings({getData: getData(Entity)});
           entityTableParams[name] = tableParams;
           /* jshint ignore:end */
